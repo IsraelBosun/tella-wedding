@@ -1,26 +1,283 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+  Tokens extracted from the Timeless Grace reference (see _scratch/ref/SPEC.md),
+  extended with the white-and-gold palette this couple asked for.
+
+  Tailwind v4 reads these from @theme, not tailwind.config.js, so every name
+  here generates real utilities including variants and /alpha modifiers.
+*/
+@theme {
+  /* Surfaces */
+  --color-ivory: #FDF4EB;
+  --color-cream: #F9F0E0;
+  --color-parchment: #F2E9DF;
+  --color-beige: #EEDCC3;
+
+  /*
+    The reference has no dark brown anywhere. All text is gold-brown, which is
+    most of why it reads as printed stationery rather than a web page.
+  */
+  --color-ink: #5F4A1F;
+  --color-ink-soft: #7A6330;
+  --color-gold: #94742C;
+  --color-gold-deep: #5C4718;
+  --color-gold-soft: #9A7C3C;
+  --color-gold-bright: #C9A44C;
+  --color-rust: #8A5514;
+
+  /* Reserved for the few places that carry real emphasis. */
+  --color-ink-strong: #42330F;
+
+  /*
+    Four roles, matching the reference, plus Arabic:
+      script  headings and couple names   (Imperial Script)
+      serif   body copy at 17-21px        (Cormorant, standing in for Canela Light)
+      caps    letterspaced micro labels   (Cinzel)
+      display scratch tile labels         (Rufina)
+      arabic  the Bismillah               (Amiri)
+  */
+  --font-script: var(--font-imperial-script), "Segoe Script", cursive;
+  --font-serif: var(--font-cormorant), Georgia, "Times New Roman", serif;
+  --font-caps: var(--font-cinzel), Georgia, serif;
+  --font-display: var(--font-rufina), Georgia, serif;
+  --font-arabic: var(--font-amiri), "Traditional Arabic", serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/*
+  Base styles must live inside @layer base. Unlayered rules outrank every
+  Tailwind utility, so a bare `* { margin: 0 }` would silently kill mx-auto,
+  px-*, py-*, mb-* and space-y-* across the whole app.
+*/
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    /* Anchors land below the fixed nav instead of under it. */
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+    /*
+      Cormorant is drawn on a light armature and needs 400 as its floor on a
+      warm ground. 500 is the working body weight; 300 disappeared entirely,
+      which is what "no bold parts" was describing.
+    */
+    font-weight: 500;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-script);
+    font-weight: 400;
+    line-height: 1.15;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background-color: var(--color-gold-bright);
+    color: var(--color-cream);
+  }
+
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--color-parchment); }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-gold-soft);
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-gold-deep); }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer utilities {
+  .tabular { font-variant-numeric: tabular-nums; }
+
+  /*
+    Imperial Script sits high in its em box and clips its own descenders at
+    tight line heights, so script headings get room rather than overflow-hidden.
+  */
+  .script-heading {
+    font-family: var(--font-script);
+    font-weight: 400;
+    line-height: 1.35;
+    padding-bottom: 0.12em;
+  }
+
+  /*
+    Foil stamp. Real gold leaf is never one flat colour: it is a gradient with a
+    bright band running across it. Clipping that gradient to the glyphs is the
+    difference between "gold-coloured text" and something that looks pressed
+    into the paper.
+  */
+  /*
+    Every stop on this ramp clears 3:1 against the ivory ground, which is the
+    large-text threshold. The previous ramp peaked at #FFF6E2: lighter than the
+    page itself, so the brightest part of every heading was a hole in it. A foil
+    highlight that cannot be read is not a highlight.
+  */
+  .foil {
+    background-image: linear-gradient(
+      100deg,
+      #43330E 0%,
+      #664F1B 14%,
+      #8C6E27 32%,
+      #B0862F 47%,
+      #8C6E27 62%,
+      #614B19 82%,
+      #3D2F0C 100%
+    );
+    background-size: 220% 100%;
+    background-position: 0% 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Slow travel of the bright band, so the foil catches light as you read. */
+  .foil-animate {
+    animation: foil-sweep 9s ease-in-out infinite;
+  }
+
+  /*
+    Paper. A fine fibre noise plus a warm vignette, laid over the flat ivory.
+    Fixed attachment means the grain belongs to the sheet, not to the scroll,
+    which is what stops long pages reading as flat #FDF4EB.
+  */
+  .paper::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.38;
+    background-image:
+      radial-gradient(ellipse 120% 80% at 50% 0%, rgba(255, 252, 245, 0.9) 0%, transparent 55%),
+      radial-gradient(ellipse 100% 70% at 50% 100%, rgba(222, 197, 152, 0.22) 0%, transparent 60%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.16'/%3E%3C/svg%3E");
+  }
+
+  /* Letterspaced micro label. Used for every section eyebrow. */
+  .eyebrow {
+    font-family: var(--font-caps);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    line-height: 1.9;
+  }
+
+  /*
+    The one emphasis class. Used sparingly: a passage that must survive being
+    read on a phone in sunlight, which is most of how this will be opened.
+  */
+  .lede {
+    font-weight: 600;
+    color: var(--color-ink-strong);
+  }
+
+  /*
+    Embossed relief, as on the sample's arch. A light source at the top left
+    means a white drop below-right and a warm shadow above-left; doing it with
+    two drop-shadows on the SVG rather than with strokes keeps the moulding
+    attached to the curve at every width.
+  */
+  .relief {
+    filter:
+      drop-shadow(1px 1.5px 0 rgba(255, 255, 255, 0.9))
+      drop-shadow(-1px -1px 1px rgba(150, 118, 54, 0.28))
+      drop-shadow(0 6px 14px rgba(125, 99, 50, 0.13));
+  }
+
+  /*
+    Edge-to-edge hairline that fades out at both ends, so a rule never collides
+    with the page margin the way a hard 1px border does.
+  */
+  .rule-fade {
+    height: 1px;
+    background-image: linear-gradient(
+      to right,
+      transparent,
+      rgba(166, 133, 71, 0.45) 22%,
+      rgba(166, 133, 71, 0.45) 78%,
+      transparent
+    );
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/*
+  Cover keyframes, lifted from the reference. The tap label animates its
+  letter-spacing as well as its opacity, which is what makes it read as
+  breathing rather than blinking.
+*/
+@keyframes cover-label-pulse {
+  0%, 100% { opacity: 0.45; letter-spacing: 0.26em; }
+  50%      { opacity: 1;    letter-spacing: 0.30em; }
+}
+
+@keyframes cover-chevron-drift {
+  0%, 100% { transform: rotate(-45deg) translate(0, 0); opacity: 0.6; }
+  50%      { transform: rotate(-45deg) translate(2px, -2px); opacity: 1; }
+}
+
+@keyframes cover-cue-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Warm flash that fires once the scratch tiles are cleared. */
+@keyframes reveal-flash {
+  0%   { opacity: 0; }
+  25%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes foil-sweep {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* Slow drift for the hero ornament, a few pixels over several seconds. */
+@keyframes drift {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+/*
+  Gold motes. A handful of DOM nodes on a CSS transform beats a WebGL context
+  for this: it costs nothing, never drops a frame on a mid-range Android, and
+  is switched off wholesale by the reduced-motion block above.
+*/
+@keyframes mote {
+  0%   { transform: translate3d(0, 0, 0) scale(0.7); opacity: 0; }
+  12%  { opacity: 0.75; }
+  85%  { opacity: 0.55; }
+  100% { transform: translate3d(var(--mote-x, 18px), -78vh, 0) scale(1.05); opacity: 0; }
+}
+
+@layer utilities {
+  .animate-cover-label   { animation: cover-label-pulse 2.4s 1.6s ease-in-out infinite; }
+  .animate-cover-chevron { animation: cover-chevron-drift 2.4s 1.9s ease-in-out infinite; }
+  .animate-cover-cue-in  { animation: cover-cue-in 1.2s 0.8s both; }
+  .animate-reveal-flash  { animation: reveal-flash 1.5s ease forwards; }
+  .animate-drift         { animation: drift 7s ease-in-out infinite; }
+  .animate-mote          { animation: mote var(--mote-dur, 15s) var(--mote-delay, 0s) linear infinite; }
 }
