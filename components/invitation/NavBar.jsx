@@ -6,16 +6,22 @@ import { AnimatePresence, motion } from 'framer-motion';
 /**
  * Fixed nav, revealed once the hero has scrolled past.
  *
- * On phones the five links are not squeezed into a 360px bar. The bar keeps the
+ * On phones the six links are not squeezed into a 360px bar. The bar keeps the
  * monogram and the music control, and the sections open as a full-height ivory
  * menu in the same script face as the page, which is the treatment the rest of
  * the invitation would use if it had a menu.
  */
+/*
+  Listed in the order they appear on the page, so the bar reads as a map of
+  the scroll rather than a menu of unrelated places. Dress Code earns the
+  sixth slot: it is the thing guests come back to the link for.
+*/
 const LINKS = [
   { href: '#story', label: 'Our Story' },
   { href: '#nikkah', label: 'Nikkah' },
   { href: '#engagement', label: 'Engagement' },
   { href: '#location', label: 'Location' },
+  { href: '#dress-code', label: 'Dress Code' },
   { href: '#rsvp', label: 'RSVP' },
 ];
 
@@ -88,18 +94,18 @@ export function NavBar({ monogram, audio }) {
 
           <a
             href="#top"
-            className="monogram stamp text-[20px] sm:text-[23px]"
+            className="monogram stamp text-[22px] sm:text-[26px]"
             onClick={() => setMenuOpen(false)}
           >
             {monogram}
           </a>
 
-          <div className="hidden items-center gap-7 md:flex">
+          <div className="hidden items-center gap-5 md:flex lg:gap-7">
             {LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
-                className="eyebrow text-[0.56rem] text-blue-ink transition-colors hover:text-blue-ink"
+                className="eyebrow text-[0.66rem] whitespace-nowrap !tracking-[0.15em] text-blue-ink transition-colors hover:text-blue-ink"
               >
                 {link.label}
               </a>
@@ -147,7 +153,7 @@ export function NavBar({ monogram, audio }) {
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.06 * i + 0.08, duration: 0.45 }}
-                className="script-heading stamp relative z-10 py-2 text-[38px]"
+                className="script-heading stamp relative z-10 py-2 text-[40px]"
               >
                 {link.label}
               </motion.a>

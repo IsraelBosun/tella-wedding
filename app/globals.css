@@ -223,7 +223,7 @@
   /* Letterspaced micro label. Used for every section eyebrow. */
   .eyebrow {
     font-family: var(--font-caps);
-    font-size: 0.62rem;
+    font-size: 0.73rem;
     font-weight: 600;
     letter-spacing: 0.26em;
     text-transform: uppercase;
@@ -274,26 +274,6 @@
   }
 }
 
-/*
-  Cover keyframes, lifted from the reference. The tap label animates its
-  letter-spacing as well as its opacity, which is what makes it read as
-  breathing rather than blinking.
-*/
-@keyframes cover-label-pulse {
-  0%, 100% { opacity: 0.45; letter-spacing: 0.26em; }
-  50%      { opacity: 1;    letter-spacing: 0.30em; }
-}
-
-@keyframes cover-chevron-drift {
-  0%, 100% { transform: rotate(-45deg) translate(0, 0); opacity: 0.6; }
-  50%      { transform: rotate(-45deg) translate(2px, -2px); opacity: 1; }
-}
-
-@keyframes cover-cue-in {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
 /* Warm flash that fires once the scratch tiles are cleared. */
 @keyframes reveal-flash {
   0%   { opacity: 0; }
@@ -320,9 +300,6 @@
 }
 
 @layer utilities {
-  .animate-cover-label   { animation: cover-label-pulse 2.4s 1.6s ease-in-out infinite; }
-  .animate-cover-chevron { animation: cover-chevron-drift 2.4s 1.9s ease-in-out infinite; }
-  .animate-cover-cue-in  { animation: cover-cue-in 1.2s 0.8s both; }
   .animate-reveal-flash  { animation: reveal-flash 1.5s ease forwards; }
   .animate-drift         { animation: drift 7s ease-in-out infinite; }
   .animate-mote          { animation: mote var(--mote-dur, 15s) var(--mote-delay, 0s) linear infinite; }

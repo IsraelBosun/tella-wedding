@@ -43,10 +43,10 @@ export function PhotoFrame({
             <span className="pointer-events-none absolute inset-[18px] border border-blue-deep/12" />
 
             <span className="relative flex size-20 items-center justify-center rounded-full border border-blue-deep/30 bg-paper/60">
-              <span className="monogram stamp text-[19px]">{monogram}</span>
+              <span className="monogram stamp text-[21px]">{monogram}</span>
             </span>
 
-            <span className="eyebrow relative text-[0.5rem] text-blue-mid">
+            <span className="eyebrow relative text-[0.59rem] text-blue-mid">
               Photograph to follow
             </span>
           </div>
@@ -57,7 +57,7 @@ export function PhotoFrame({
       </div>
 
       {caption && (
-        <figcaption className="mt-4 text-center font-serif text-[15px] leading-relaxed font-medium text-blue-mid italic">
+        <figcaption className="mt-4 text-center font-serif text-[17px] leading-relaxed font-medium text-blue-mid italic">
           {caption}
         </figcaption>
       )}

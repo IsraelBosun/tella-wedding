@@ -36,10 +36,10 @@ function Unit({ value, label }) {
         tabular figures, so the row would twitch on every tick; the serif keeps
         the same warmth and holds still.
       */}
-      <span className="tabular stamp font-serif text-[42px] leading-none font-medium sm:text-[56px]">
+      <span className="tabular stamp font-serif text-[45px] leading-none font-medium sm:text-[58px]">
         {pad(value)}
       </span>
-      <span className="eyebrow mt-3 text-[0.5rem] text-blue-ink sm:text-[0.55rem]">
+      <span className="eyebrow mt-3 text-[0.59rem] text-blue-ink sm:text-[0.65rem]">
         {label}
       </span>
     </div>
@@ -71,7 +71,7 @@ export function CountdownSection({ date, countdown }) {
           <Unit value={value.seconds} label="Seconds" />
         </div>
 
-        <p className="mx-auto mt-14 max-w-[42ch] font-serif text-[18px] leading-[1.9] font-medium text-ink sm:text-[20px]">
+        <p className="mx-auto mt-14 max-w-[42ch] font-serif text-[20px] leading-[1.9] font-medium text-ink sm:text-[22px]">
           {countdown.message}
         </p>
       </section>

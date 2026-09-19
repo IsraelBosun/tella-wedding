@@ -58,25 +58,25 @@ export function DressCodeSection({ dressCode }) {
           has to carry away from this section, so they are lifted out of the
           run of text and set in the script face on their own line.
         */}
-        <p className="mt-10 font-serif text-[18px] leading-[1.7] font-medium text-ink sm:text-[19px]">
+        <p className="mt-10 font-serif text-[20px] leading-[1.7] font-medium text-ink sm:text-[21px]">
           {dressCode.invite.lead}
         </p>
-        <p className="script-heading stamp mt-2 text-[30px] leading-[1.3] sm:text-[38px]">
+        <p className="script-heading stamp mt-2 text-[33px] leading-[1.3] sm:text-[40px]">
           {dressCode.invite.highlight}
         </p>
-        <p className="mt-1 font-serif text-[18px] leading-[1.7] font-medium text-ink sm:text-[19px]">
+        <p className="mt-1 font-serif text-[20px] leading-[1.7] font-medium text-ink sm:text-[21px]">
           {dressCode.invite.trail}
         </p>
 
         {dressCode.description && (
-          <p className="mx-auto mt-5 max-w-[40ch] font-serif text-[16px] leading-[1.8] font-medium text-ink-soft">
+          <p className="mx-auto mt-5 max-w-[40ch] font-serif text-[18px] leading-[1.8] font-medium text-ink-soft">
             {dressCode.description}
           </p>
         )}
 
         <OrnamentalDivider size="sm" className="mt-12" />
 
-        <p className="eyebrow mt-8 text-[0.55rem] text-blue-ink">
+        <p className="eyebrow mt-8 text-[0.65rem] text-blue-ink">
           {dressCode.shadesLabel}
         </p>
 
@@ -94,10 +94,10 @@ export function DressCodeSection({ dressCode }) {
                 style={{ backgroundColor: color.hex }}
                 className="block aspect-square w-full rounded-full border border-blue-deep/30"
               />
-              <span className="mt-2 font-caps text-[0.5rem] tracking-[0.12em] text-blue-ink uppercase">
+              <span className="mt-2 font-caps text-[0.59rem] tracking-[0.12em] text-blue-ink uppercase">
                 {color.name}
               </span>
-              <span className="tabular mt-0.5 font-caps text-[0.48rem] tracking-[0.08em] text-blue-mid">
+              <span className="tabular mt-0.5 font-caps text-[0.57rem] tracking-[0.08em] text-blue-mid">
                 {color.hex}
               </span>
             </motion.li>
@@ -111,10 +111,10 @@ export function DressCodeSection({ dressCode }) {
         <dl className="mt-14 flex flex-col gap-6 text-left sm:flex-row sm:gap-10">
           {dressCode.guidance.map((item) => (
             <div key={item.who} className="flex-1">
-              <dt className="eyebrow text-[0.55rem] text-blue-ink">
+              <dt className="eyebrow text-[0.65rem] text-blue-ink">
                 {item.who}
               </dt>
-              <dd className="mt-3 font-serif text-[18px] leading-[1.6] font-medium text-ink sm:text-[19px]">
+              <dd className="mt-3 font-serif text-[20px] leading-[1.6] font-medium text-ink sm:text-[21px]">
                 {item.what}
               </dd>
             </div>

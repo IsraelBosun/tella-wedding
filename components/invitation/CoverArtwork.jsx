@@ -25,7 +25,7 @@ export function CoverArtwork({ monogram, names, bismillah }) {
             <p
               lang="ar"
               dir="rtl"
-              className="font-arabic text-[13px] leading-[1.9] text-blue-ink sm:text-[15px]"
+              className="font-arabic text-[15px] leading-[1.9] text-blue-ink sm:text-[17px]"
             >
               {bismillah}
             </p>
@@ -37,7 +37,7 @@ export function CoverArtwork({ monogram, names, bismillah }) {
           {/* Wax seal. */}
           <div className="relative flex size-28 items-center justify-center rounded-full bg-blue-ink shadow-[0_6px_14px_-6px_rgba(39,69,94,0.7)] sm:size-32">
             <span className="absolute inset-1.5 rounded-full border border-shell/45" />
-            <span className="monogram text-[28px] text-shell sm:text-[34px]">
+            <span className="monogram text-[31px] text-shell sm:text-[37px]">
               {monogram}
             </span>
           </div>
@@ -45,7 +45,7 @@ export function CoverArtwork({ monogram, names, bismillah }) {
           {names && (
             <>
               <span className="mt-7 h-px w-14 bg-blue-deep/50" />
-              <span className="mt-5 font-caps text-[0.58rem] tracking-[0.28em] text-blue-ink uppercase sm:text-[0.64rem]">
+              <span className="mt-5 font-caps text-[0.68rem] tracking-[0.28em] text-blue-ink uppercase sm:text-[0.76rem]">
                 {names}
               </span>
             </>

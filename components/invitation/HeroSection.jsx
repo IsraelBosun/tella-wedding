@@ -1,5 +1,6 @@
 'use client';
 
+import { useCallback, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ScrollCue } from './ScrollCue';
 import { BotanicalSprig } from './BotanicalSprig';
@@ -20,6 +21,17 @@ import { FloralCorner } from './ornaments/FloralCorner';
  * the type, floral sprays in the lower corners, the Bismillah at the crown,
  * and the two names at the largest size on the page.
  */
+
+/*
+  How much of the hero clip is used. The file is longer, but only the
+  opening holds on the couple, so it is cut here and looped.
+
+  This is a playback cut, not a trim: the whole file is still downloaded,
+  because trimming the mp4 itself needs ffmpeg, which is not on this
+  machine. Re-encoding it to five seconds would save the guest most of
+  5.7MB and is worth doing before this goes out.
+*/
+const HERO_CLIP_SECONDS = 5;
 
 // Staggered so the Bismillah settles before the names arrive under it.
 const rise = {
@@ -62,9 +74,22 @@ export function HeroSection({ data }) {
  */
 function VideoHero({ data, src }) {
   const { groom, bride, media } = data;
+  const videoRef = useRef(null);
 
   const { scrollY } = useScroll();
   const fade = useTransform(scrollY, [0, 520], [1, 0]);
+
+  /*
+    Seeking back rather than pausing and replaying, so the loop has no gap in
+    it. `loop` stays on the element as the backstop for a file shorter than
+    the cut.
+  */
+  const restartAtCut = useCallback(() => {
+    const video = videoRef.current;
+    if (video && video.currentTime >= HERO_CLIP_SECONDS) {
+      video.currentTime = 0;
+    }
+  }, []);
 
   return (
     <section id="top" className="relative w-full overflow-hidden">
@@ -73,6 +98,7 @@ function VideoHero({ data, src }) {
         className="pointer-events-none relative aspect-9/16 max-h-svh w-full"
       >
         <video
+          ref={videoRef}
           src={src}
           poster={media?.heroImage ?? undefined}
           autoPlay
@@ -80,6 +106,7 @@ function VideoHero({ data, src }) {
           loop
           playsInline
           preload="metadata"
+          onTimeUpdate={restartAtCut}
           className="absolute inset-0 size-full object-contain"
         />
       </motion.div>
@@ -135,7 +162,7 @@ function DrawnHero({ data }) {
           custom={0}
           lang="ar"
           dir="rtl"
-          className="font-arabic text-[20px] leading-[2] font-bold text-blue-ink sm:text-[24px]"
+          className="font-arabic text-[22px] leading-[2] font-bold text-blue-ink sm:text-[26px]"
         >
           {bismillah}
         </motion.p>
@@ -149,7 +176,7 @@ function DrawnHero({ data }) {
           initial="hidden"
           animate="show"
           custom={2}
-          className="eyebrow mt-6 text-[0.6rem] text-blue-ink"
+          className="eyebrow mt-6 text-[0.71rem] text-blue-ink"
         >
           {hero.kicker}
         </motion.p>
@@ -161,11 +188,11 @@ function DrawnHero({ data }) {
           custom={3}
           className="script-heading mt-5 flex flex-col leading-[0.95]"
         >
-          <span className="stamp text-[64px] sm:text-[88px]">{groom.name}</span>
-          <span className="my-1 font-serif text-[26px] font-semibold text-blue-deep italic sm:text-[32px]">
+          <span className="stamp text-[66px] sm:text-[91px]">{groom.name}</span>
+          <span className="my-1 font-serif text-[28px] font-semibold text-blue-deep italic sm:text-[35px]">
             &amp;
           </span>
-          <span className="stamp text-[64px] sm:text-[88px]">{bride.name}</span>
+          <span className="stamp text-[66px] sm:text-[91px]">{bride.name}</span>
         </motion.h1>
 
         <motion.div
@@ -177,11 +204,11 @@ function DrawnHero({ data }) {
         >
           <span className="rule-fade w-full max-w-[260px]" />
 
-          <p className="eyebrow mt-6 text-[0.58rem] text-blue-mid">
+          <p className="eyebrow mt-6 text-[0.68rem] text-blue-mid">
             {hero.place}
           </p>
 
-          <p className="mt-7 inline-flex items-center rounded-full border border-blue-deep/40 bg-shell/70 px-5 py-2 font-caps text-[0.62rem] font-semibold tracking-[0.16em] text-blue-ink">
+          <p className="mt-7 inline-flex items-center rounded-full border border-blue-deep/40 bg-shell/70 px-5 py-2 font-caps text-[0.73rem] font-semibold tracking-[0.16em] text-blue-ink">
             {hashtag}
           </p>
         </motion.div>

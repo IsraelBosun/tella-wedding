@@ -21,7 +21,7 @@ export function OurStorySection({ story, monogram }) {
           {story.paragraphs.map((paragraph) => (
             <p
               key={paragraph}
-              className="font-serif text-[18px] leading-[1.9] font-medium text-ink sm:text-[20px]"
+              className="font-serif text-[20px] leading-[1.9] font-medium text-ink sm:text-[22px]"
             >
               {paragraph}
             </p>
@@ -36,13 +36,13 @@ export function OurStorySection({ story, monogram }) {
         */}
         <blockquote className="my-14 flex flex-col items-center text-center">
           <span className="rule-fade w-24" />
-          <p className="stamp-rose mt-7 font-serif text-[26px] leading-[1.45] font-medium italic sm:text-[32px]">
+          <p className="stamp-rose mt-7 font-serif text-[28px] leading-[1.45] font-medium italic sm:text-[35px]">
             &ldquo;{story.pullQuote}&rdquo;
           </p>
           <span className="rule-fade mt-7 w-24" />
         </blockquote>
 
-        <p className="text-center font-serif text-[18px] leading-[1.9] font-medium text-ink sm:text-[20px]">
+        <p className="text-center font-serif text-[20px] leading-[1.9] font-medium text-ink sm:text-[22px]">
           {story.closing}
         </p>
 

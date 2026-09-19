@@ -243,7 +243,7 @@ export function DateReveal({
         >
           <SectionHeading eyebrow={eyebrow} heading={heading} />
 
-          <p className="mt-9 font-serif text-[18px] leading-[1.9] font-medium text-ink sm:text-[20px]">
+          <p className="mt-9 font-serif text-[20px] leading-[1.9] font-medium text-ink sm:text-[22px]">
             {prompt}
           </p>
 
@@ -296,14 +296,14 @@ export function DateReveal({
           <div className="mt-11 flex min-h-[7.5rem] flex-col items-center justify-start">
             {!allDone ? (
               <>
-                <p className="font-serif text-[17px] font-medium text-blue-deep">
+                <p className="font-serif text-[19px] font-medium text-blue-deep">
                   ✦ {hint} ✦
                 </p>
                 {/* Keyboard and assistive tech route to the same outcome. */}
                 <button
                   type="button"
                   onClick={revealAll}
-                  className="mt-4 font-caps text-[0.58rem] tracking-[0.2em] text-blue-ink uppercase underline underline-offset-4 transition-colors hover:text-blue-ink"
+                  className="mt-4 font-caps text-[0.68rem] tracking-[0.2em] text-blue-ink uppercase underline underline-offset-4 transition-colors hover:text-blue-ink"
                 >
                   Reveal instead
                 </button>
@@ -317,11 +317,11 @@ export function DateReveal({
               >
                 <span className="rule-fade w-40" />
 
-                <p className="mt-6 font-caps text-[0.82rem] tracking-[0.2em] text-blue-ink uppercase sm:text-[0.95rem]">
+                <p className="mt-6 font-caps text-[0.93rem] tracking-[0.2em] text-blue-ink uppercase sm:text-[1.08rem]">
                   {event.short}
                 </p>
 
-                <p className="mt-3 font-serif text-[18px] font-medium text-ink italic sm:text-[19px]">
+                <p className="mt-3 font-serif text-[20px] font-medium text-ink italic sm:text-[21px]">
                   {event.weekday} · Nikkah {event.time}
                 </p>
 

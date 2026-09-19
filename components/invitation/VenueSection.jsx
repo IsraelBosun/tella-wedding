@@ -33,11 +33,11 @@ export function VenueSection({ venue }) {
       >
         <SectionHeading eyebrow={venue.eyebrow} heading={venue.name} />
 
-        <p className="mt-8 font-serif text-[18px] leading-relaxed font-medium text-ink sm:text-[19px]">
+        <p className="mt-8 font-serif text-[20px] leading-relaxed font-medium text-ink sm:text-[21px]">
           {venue.address}
         </p>
 
-        <p className="mx-auto mt-5 max-w-[42ch] font-serif text-[17px] leading-[1.8] font-medium text-ink">
+        <p className="mx-auto mt-5 max-w-[42ch] font-serif text-[19px] leading-[1.8] font-medium text-ink">
           {venue.note}
         </p>
 
@@ -84,7 +84,7 @@ export function VenueSection({ venue }) {
           href={venue.directionsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-10 inline-flex items-center gap-3 rounded-full border border-blue-deep/45 bg-shell/60 px-9 py-4 font-caps text-[0.6rem] tracking-[0.22em] text-blue-ink uppercase transition-colors hover:border-blue-deep hover:bg-shell"
+          className="mt-10 inline-flex items-center gap-3 rounded-full border border-blue-deep/45 bg-shell/60 px-9 py-4 font-caps text-[0.71rem] tracking-[0.22em] text-blue-ink uppercase transition-colors hover:border-blue-deep hover:bg-shell"
         >
           Get Directions
           <span aria-hidden="true" className="text-[0.85em]">

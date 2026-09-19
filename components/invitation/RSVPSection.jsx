@@ -2,7 +2,6 @@
 
 import { SectionReveal } from './SectionReveal';
 import { OrnamentalDivider } from './OrnamentalDivider';
-import { FloralCorner } from './ornaments/FloralCorner';
 
 /**
  * Two actions, no form.
@@ -22,7 +21,7 @@ function whatsapp(number, message) {
 
 function Action({ href, external = false, children, primary = false }) {
   const base =
-    'flex flex-1 items-center justify-center gap-3 rounded-full px-8 py-4 font-caps text-[0.6rem] tracking-[0.2em] uppercase transition-colors';
+    'flex flex-1 items-center justify-center gap-3 rounded-full px-8 py-4 font-caps text-[0.71rem] tracking-[0.2em] uppercase transition-colors';
 
   const skin = primary
     ? 'bg-blue-ink text-paper shadow-[0_10px_24px_-14px_rgba(39,69,94,0.9)] hover:bg-blue-deep'
@@ -48,20 +47,13 @@ export function RSVPSection({ rsvp }) {
         id="rsvp"
         className="relative mx-auto w-full max-w-[560px] overflow-hidden px-7 pt-24 pb-36 text-center sm:pt-28 sm:pb-44"
       >
-        {/* The section is closed off by its own corners rather than by a rule. */}
-        <FloralCorner className="pointer-events-none absolute bottom-0 left-0 w-36 sm:w-44" />
-        <FloralCorner
-          className="pointer-events-none absolute right-0 bottom-0 w-36 sm:w-44"
-          flip
-        />
-
-        <h2 className="script-heading stamp text-[40px] leading-[1.2] sm:text-[52px]">
+        <h2 className="script-heading stamp text-[42px] leading-[1.2] sm:text-[55px]">
           {rsvp.heading}
         </h2>
 
         <OrnamentalDivider size="md" className="mt-6" />
 
-        <p className="mt-9 font-serif text-[18px] leading-[1.9] font-medium text-ink sm:text-[20px]">
+        <p className="mt-9 font-serif text-[20px] leading-[1.9] font-medium text-ink sm:text-[22px]">
           {rsvp.deadlineLabel}
         </p>
 
@@ -70,7 +62,7 @@ export function RSVPSection({ rsvp }) {
           plenty of guests will forward this to someone who needs to write it
           down rather than tap it.
         */}
-        <p className="tabular mt-4 font-caps text-[1.05rem] tracking-[0.14em] text-blue-ink sm:text-[1.2rem]">
+        <p className="tabular mt-4 font-caps text-[1.2rem] tracking-[0.14em] text-blue-ink sm:text-[1.34rem]">
           {rsvp.phone}
         </p>
 
@@ -84,7 +76,7 @@ export function RSVPSection({ rsvp }) {
           </Action>
         </div>
 
-        <p className="script-heading stamp relative mt-14 text-[34px] sm:text-[42px]">
+        <p className="script-heading stamp relative mt-14 text-[37px] sm:text-[45px]">
           {rsvp.closingLine}
         </p>
       </section>

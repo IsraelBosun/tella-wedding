@@ -14,7 +14,7 @@ export function ScrollCue({ label = 'Scroll' }) {
       transition={{ delay: 1.4, duration: 1 }}
       className="flex flex-col items-center gap-2.5 pt-12"
     >
-      <p className="script-heading text-[24px] text-blue-deep">{label}</p>
+      <p className="script-heading text-[26px] text-blue-deep">{label}</p>
 
       <motion.span
         aria-hidden="true"

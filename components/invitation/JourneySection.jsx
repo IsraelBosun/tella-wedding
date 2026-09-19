@@ -40,14 +40,14 @@ function BlockTitle({ title, time, motif, tone = 'blue' }) {
     <div className="flex flex-col items-center text-center">
       {motif && <GoldMotif name={motif} className="mb-2 w-40 sm:w-48" />}
       <h3
-        className={`script-heading text-[34px] sm:text-[40px] ${
+        className={`script-heading text-[37px] sm:text-[42px] ${
           rose ? 'stamp-rose' : 'stamp'
         }`}
       >
         {title}
       </h3>
       <p
-        className={`eyebrow mt-2 text-[0.55rem] ${
+        className={`eyebrow mt-2 text-[0.65rem] ${
           rose ? 'text-rose-ink' : 'text-blue-ink'
         }`}
       >
@@ -230,10 +230,10 @@ function NikkahRail({ schedule }) {
 function TimeEntry({ item, align }) {
   return (
     <div className={align === 'right' ? 'text-right' : 'text-left'}>
-      <p className="time-stamp stamp text-[15px] sm:text-[22px]">
+      <p className="time-stamp stamp text-[17px] sm:text-[25px]">
         {item.time}
       </p>
-      <p className="mt-1.5 font-serif text-[14px] leading-[1.35] font-semibold text-ink sm:mt-2 sm:text-[21px]">
+      <p className="mt-1.5 font-serif text-[16px] leading-[1.35] font-semibold text-ink sm:mt-2 sm:text-[24px]">
         {item.title}
       </p>
     </div>
@@ -251,10 +251,10 @@ function EngagementOrder({ order, inView }) {
           transition={{ delay: index * 0.06, duration: 0.5, ease: 'easeOut' }}
           className="grid grid-cols-[28px_1fr] items-baseline gap-x-4 border-b border-rose-deep/25 py-4 last:border-b-0 sm:grid-cols-[34px_1fr]"
         >
-          <span className="tabular font-caps text-[0.58rem] text-rose-ink">
+          <span className="tabular font-caps text-[0.68rem] text-rose-ink">
             {String(index + 1).padStart(2, '0')}
           </span>
-          <p className="font-serif text-[18px] leading-[1.45] font-medium text-ink sm:text-[20px]">
+          <p className="font-serif text-[20px] leading-[1.45] font-medium text-ink sm:text-[22px]">
             {item}
           </p>
         </motion.li>
@@ -271,28 +271,28 @@ function EventCard({ date, venue }) {
       <span className="pointer-events-none absolute inset-[15px] border border-blue-deep/12" />
 
       <div className="relative">
-        <p className="script-heading stamp-gold text-[38px] sm:text-[46px]">
+        <p className="script-heading stamp-gold text-[40px] sm:text-[49px]">
           {date.long}
         </p>
-        <p className="eyebrow mt-2 text-[0.55rem] text-blue-ink">
+        <p className="eyebrow mt-2 text-[0.65rem] text-blue-ink">
           {date.weekday}
         </p>
 
         <OrnamentalDivider size="md" className="my-8" />
 
-        <p className="font-caps text-[0.68rem] tracking-[0.22em] text-blue-ink uppercase">
+        <p className="font-caps text-[0.8rem] tracking-[0.22em] text-blue-ink uppercase">
           Nikkah · {date.time}
         </p>
-        <p className="mt-2 font-serif text-[17px] font-medium text-ink italic">
+        <p className="mt-2 font-serif text-[19px] font-medium text-ink italic">
           Followed by Engagement
         </p>
 
         <OrnamentalDivider size="md" className="my-8" />
 
-        <p className="script-heading stamp text-[30px] sm:text-[34px]">
+        <p className="script-heading stamp text-[33px] sm:text-[37px]">
           {venue.name}
         </p>
-        <p className="mt-2 font-serif text-[16px] leading-relaxed font-medium text-ink sm:text-[17px]">
+        <p className="mt-2 font-serif text-[18px] leading-relaxed font-medium text-ink sm:text-[19px]">
           {venue.address}
         </p>
       </div>
@@ -312,14 +312,14 @@ export function JourneySection({ journey, venue, date }) {
       >
         <SectionHeading eyebrow={journey.eyebrow} heading={journey.heading} />
 
-        <p className="mt-10 text-center font-serif text-[18px] leading-[1.9] font-medium text-ink sm:text-[20px]">
+        <p className="mt-10 text-center font-serif text-[20px] leading-[1.9] font-medium text-ink sm:text-[22px]">
           {journey.intro}
         </p>
 
         <div id="nikkah" className="mt-20 scroll-mt-24">
           <BlockTitle title={nikkah.title} time={nikkah.time} motif="nikkah" />
           <NikkahRail schedule={nikkah.schedule} />
-          <p className="mt-9 border-t border-blue-deep/15 pt-6 text-center font-serif text-[15px] leading-relaxed font-medium text-blue-mid italic">
+          <p className="mt-9 border-t border-blue-deep/15 pt-6 text-center font-serif text-[17px] leading-relaxed font-medium text-blue-mid italic">
             {nikkah.note}
           </p>
         </div>
@@ -335,7 +335,7 @@ export function JourneySection({ journey, venue, date }) {
             motif="music"
             tone="rose"
           />
-          <p className="mt-6 text-center font-serif text-[17px] leading-[1.8] font-medium text-ink sm:text-[18px]">
+          <p className="mt-6 text-center font-serif text-[19px] leading-[1.8] font-medium text-ink sm:text-[20px]">
             {engagement.intro}
           </p>
           <EngagementOrder order={engagement.order} inView={inView} />

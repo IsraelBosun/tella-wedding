@@ -30,7 +30,7 @@ function Family({ side, house, place, note, tone = 'blue' }) {
       }`}
     >
       <p
-        className={`eyebrow text-[0.55rem] ${
+        className={`eyebrow text-[0.65rem] ${
           rose ? 'text-rose-ink' : 'text-blue-ink'
         }`}
       >
@@ -38,7 +38,7 @@ function Family({ side, house, place, note, tone = 'blue' }) {
       </p>
 
       <h3
-        className={`script-heading mt-4 text-[30px] leading-[1.25] sm:text-[34px] ${
+        className={`script-heading mt-4 text-[33px] leading-[1.25] sm:text-[37px] ${
           rose ? 'stamp-rose' : 'stamp'
         }`}
       >
@@ -50,7 +50,7 @@ function Family({ side, house, place, note, tone = 'blue' }) {
       </h3>
 
       <p
-        className={`mt-4 font-caps text-[0.55rem] tracking-[0.2em] uppercase ${
+        className={`mt-4 font-caps text-[0.65rem] tracking-[0.2em] uppercase ${
           rose ? 'text-rose-ink' : 'text-blue-mid'
         }`}
       >
@@ -58,7 +58,7 @@ function Family({ side, house, place, note, tone = 'blue' }) {
       </p>
 
       {note && (
-        <p className="mt-5 max-w-[34ch] font-serif text-[17px] leading-[1.8] font-medium text-ink">
+        <p className="mt-5 max-w-[34ch] font-serif text-[19px] leading-[1.8] font-medium text-ink">
           {note}
         </p>
       )}
@@ -91,8 +91,14 @@ function Family({ side, house, place, note, tone = 'blue' }) {
  * wording inside the arch rather than across it.
  */
 function ArchCard({ invite, groom, bride, families, bismillah }) {
+  /*
+    The card was widened from 520px along with the rest of the type scale.
+    The wording inside is all cqw, a share of the card, so growing the card
+    is how that type grows: every ratio measured against the aperture still
+    holds, which scaling the cqw values themselves would not have preserved.
+  */
   return (
-    <div className="@container relative mx-auto w-full max-w-[520px]">
+    <div className="@container relative mx-auto w-full max-w-[572px]">
       <Image
         src="/invitation/ornaments/arch.png"
         alt=""

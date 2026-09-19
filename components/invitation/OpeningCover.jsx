@@ -121,13 +121,13 @@ export function OpeningCover({
               )}
             </motion.div>
 
-            <span className="animate-cover-cue-in absolute bottom-[11%] flex flex-col items-center gap-[7px] sm:bottom-[14%]">
-              <span className="animate-cover-label font-caps text-[11px] uppercase tracking-[0.26em] whitespace-nowrap text-blue-ink">
-                Tap to open
-              </span>
-              {/* Chevron built from two borders on a rotated box, as on the reference. */}
-              <span className="animate-cover-chevron size-2.5 rotate-[-45deg] border-t-[1.5px] border-r-[1.5px] border-blue-ink/60" />
-            </span>
+            {/*
+              The "Tap to open" label and its chevron used to sit here. They
+              are gone by request: the artwork is the whole screen and the
+              whole control, so nothing has to be pointed at. The button's
+              aria-label stays, because a screen reader gets no such hint
+              from a picture.
+            */}
           </button>
 
           {/*

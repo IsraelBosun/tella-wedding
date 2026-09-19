@@ -61,7 +61,7 @@ export function SectionHeading({
 
       <motion.h2
         variants={part}
-        className="script-heading mt-3 text-[40px] leading-[1.15] sm:text-[52px]"
+        className="script-heading mt-3 text-[42px] leading-[1.15] sm:text-[55px]"
       >
         {lines.map((line, i) => (
           <span key={line} className="block stamp">
