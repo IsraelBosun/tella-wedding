@@ -92,15 +92,31 @@ export function NavBar({ monogram, audio }) {
             <span className="size-9" aria-hidden="true" />
           )}
 
+          {/*
+            shrink-0 and nowrap are load-bearing. "A & S" is three words to the
+            browser, so the mark's min-content width is one glyph, which makes
+            it the first thing to give when the row is over-subscribed. It gave
+            by breaking in half across two lines while every link, being
+            nowrap, held its ground. The mark is the one thing in the bar that
+            must never break, so it is now the one thing that cannot.
+          */}
           <a
             href="#top"
-            className="monogram stamp text-[22px] sm:text-[26px]"
+            className="monogram stamp shrink-0 text-[22px] whitespace-nowrap sm:text-[26px]"
             onClick={() => setMenuOpen(false)}
           >
             {monogram}
           </a>
 
-          <div className="hidden items-center gap-5 md:flex lg:gap-7">
+          {/*
+            One gap at every width. There used to be a wider one from lg up,
+            which bought nothing: the bar is capped at max-w-3xl, so its inside
+            is the same 712px on a 1024px screen and a 4K one, and widening
+            five gaps by 8px each simply overran it by 8. At gap-5 the row
+            measures about 680px and has 32px in hand. That margin is the whole
+            budget for another link or a longer label.
+          */}
+          <div className="hidden items-center gap-5 md:flex">
             {LINKS.map((link) => (
               <a
                 key={link.href}
@@ -131,8 +147,20 @@ export function NavBar({ monogram, audio }) {
             />
           </button>
 
-          {/* Balances the music control on desktop, where there is no toggle. */}
-          <span className="hidden size-9 md:block" aria-hidden="true" />
+          {/*
+            There used to be a 36px spacer here on desktop, to balance the
+            music control at the other end. It was the wrong thing to spend the
+            width on. justify-between shares whatever is left over equally
+            between the gaps, so holding 36px at the end left about 11px
+            between the mark and the first link, and 11px beside 26px type
+            reads as touching. Letting the links finish at the padding edge,
+            exactly as the music control starts at it, is the balance the
+            spacer was reaching for, and it hands those 36px back to the gaps:
+            34px now instead of 11, on both sides of the mark.
+
+            Nothing here changes the phone layout. The spacer was desktop-only,
+            and below md the hamburger is what the mark is centred against.
+          */}
         </div>
       </motion.nav>
 
