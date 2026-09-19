@@ -9,8 +9,13 @@
   _scratch/theme-gold-backup/ if it is ever wanted back.
 */
 /*
-  The couple's two colours, and the colours the guests are asked to wear:
-  a soft sky blue and a dusty rose. Everything below is derived from them.
+  The couple's two colours: a soft sky blue and a dusty rose. Everything below
+  is derived from them.
+
+  The guests are asked to wear white and gold, which is a different pair and
+  lives only in dressCode.colors in lib/mockWedding.js. Nothing in this file
+  answers to it, and the two should not be reconciled: the page is the couple's
+  and the dress code is the guests'.
 
   The two colours themselves cannot carry text. Measured against this page the
   blue is about 2.2:1 and the rose about 2.0:1, where 4.5:1 is the floor for
@@ -84,7 +89,14 @@
     reader has to decode. Those go to Cinzel, which is an engraved face and
     the register a printed invitation uses for exactly those two things.
   */
-  --font-script: var(--font-script-face), "Segoe Script", cursive;
+  /*
+    --font-script-a is first on purpose, and it is not a fallback. It holds one
+    glyph, the capital A, under a unicode-range that stops it answering for
+    anything else, so every other character falls through to Great Vibes. See
+    the comment on it in app/layout.jsx for why the A is borrowed at all.
+  */
+  --font-script: var(--font-script-a), var(--font-script-face), "Segoe Script",
+    cursive;
   --font-serif: var(--font-cormorant), Georgia, "Times New Roman", serif;
   --font-caps: var(--font-cinzel), Georgia, serif;
   --font-display: var(--font-rufina), Georgia, serif;

@@ -8,6 +8,15 @@ import { OrnamentalDivider } from './OrnamentalDivider';
 import { FloralCorner } from './ornaments/FloralCorner';
 
 /**
+ * A house is authored as one line or as several, and either side may be
+ * either, so both the card and the arch go through here rather than each
+ * carrying its own Array.isArray.
+ */
+function houseLines(house) {
+  return Array.isArray(house) ? house : [house];
+}
+
+/**
  * Two houses, given identical weight.
  *
  * They stack on a phone and sit side by side from `sm` up, joined by a sprig
@@ -15,12 +24,12 @@ import { FloralCorner } from './ornaments/FloralCorner';
  * bride's house is authored as two lines, so it is accepted as an array.
  *
  * Each side takes one of the couple's two colours, the groom's blue and the
- * bride's rose, which is also how the two names are set on the arch card
- * above. Two families, two colours, one union: the palette carries the
- * section's own argument.
+ * bride's rose. Two families, two colours, one union: the palette carries the
+ * section's own argument. The arch card above no longer does this, and sets
+ * both names in the same ink, because there the two names sit one under the
+ * other as a single piece of wording rather than as two facing panels.
  */
 function Family({ side, house, place, note, tone = 'blue' }) {
-  const lines = Array.isArray(house) ? house : [house];
   const rose = tone === 'rose';
 
   return (
@@ -42,7 +51,7 @@ function Family({ side, house, place, note, tone = 'blue' }) {
           rose ? 'stamp-rose' : 'stamp'
         }`}
       >
-        {lines.map((line) => (
+        {houseLines(house).map((line) => (
           <span key={line} className="block">
             {line}
           </span>
@@ -143,14 +152,18 @@ function ArchCard({ invite, groom, bride, families, bismillah }) {
 
         <p className="mt-[1.8cqw] font-caps text-[2.2cqw] leading-[1.8] tracking-[0.18em] text-blue-ink uppercase">
           <span className="block">{invite.groomRole}</span>
-          <span className="block">{families.groom.house}</span>
+          {houseLines(families.groom.house).map((line) => (
+            <span key={line} className="block">
+              {line}
+            </span>
+          ))}
         </p>
 
         <p className="script-heading stamp mt-[1.8cqw] text-[5.5cqw] leading-none">
           {invite.joiner}
         </p>
 
-        <p className="script-heading stamp-rose mt-[1cqw] text-[10cqw] leading-none">
+        <p className="script-heading stamp mt-[1cqw] text-[10cqw] leading-none">
           {bride.name}
         </p>
 
@@ -158,10 +171,7 @@ function ArchCard({ invite, groom, bride, families, bismillah }) {
 
         <p className="mt-[1.8cqw] font-caps text-[2.2cqw] leading-[1.8] tracking-[0.18em] text-blue-ink uppercase">
           <span className="block">{invite.brideRole}</span>
-          {(Array.isArray(families.bride.house)
-            ? families.bride.house
-            : [families.bride.house]
-          ).map((line) => (
+          {houseLines(families.bride.house).map((line) => (
             <span key={line} className="block">
               {line}
             </span>

@@ -17,8 +17,13 @@ import { OrnamentalDivider } from './OrnamentalDivider';
  * a diagram of the attire, not a photograph of an occasion.
  *
  * The swatches carry their hex values because this is the one place on the
- * site where a colour is read in order to be acted on, and "match the blue on
+ * site where a colour is read in order to be acted on, and "match the gold on
  * my phone" is not something a tailor can work from. A number is.
+ *
+ * The chips are the guests' colours, not the site's. They are white and gold
+ * while the page around them stays blue and rose, so they are the one place
+ * the palette is allowed to break, and the ring around each chip is what keeps
+ * the white one from dissolving into the paper.
  */
 export function DressCodeSection({ dressCode }) {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.15 });
@@ -46,7 +51,7 @@ export function DressCodeSection({ dressCode }) {
               src={dressCode.illustration}
               alt={dressCode.illustrationAlt ?? ''}
               width={1400}
-              height={950}
+              height={940}
               sizes="(max-width: 640px) 90vw, 520px"
               className="mx-auto h-auto w-full max-w-[520px]"
             />

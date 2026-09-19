@@ -5,29 +5,70 @@ import {
   Great_Vibes,
   Rufina,
 } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 
 /*
   Headings and couple names.
 
-  Third face here, and the reason each one was dropped is the same: the capital
-  letters. Imperial Script had hairline strokes and looping joins. Great Vibes
-  was legible in the lowercase, but it draws its capital A as an enlarged
-  single-storey "a" with a tall entry stroke, so the groom's own name opened on
-  what looked like a small letter.
+  Third face here, and what sank the earlier two was the capitals. Imperial
+  Script had hairline strokes and looping joins. Great Vibes is kept because it
+  is right everywhere else, but it has the same weakness in one letter: it
+  draws its capital A as an enlarged single-storey "a" with a tall entry
+  stroke, so the groom's own name opened on what looked like a small letter.
 
-  The intended replacement is Petit Formal Script, which is built on copperplate
-  like the others but keeps the roman skeleton in its capitals: A has a real
-  apex and crossbar, so it cannot be read as anything else. Swapping to it needs
-  one fetch from Google Fonts, which this machine could not reach at the time of
-  writing, and an un-downloadable family is a hard build error rather than a
-  fallback. Change both the import and the call below once the network is back.
+  Rather than change the face, which would have restyled every heading on the
+  site to fix one letter, the A alone is borrowed from elsewhere. See capitalA
+  below.
 */
 const scriptFace = Great_Vibes({
   subsets: ['latin'],
   weight: ['400'],
   variable: '--font-script-face',
   display: 'swap',
+});
+
+/*
+  One glyph: the capital A that Great Vibes cannot draw legibly.
+
+  This is a font file holding a single letter, and it goes in front of Great
+  Vibes in the --font-script stack. `unicode-range` is what keeps it to that
+  one letter: the browser takes U+0041 from here and every other character
+  from Great Vibes, so nothing else on the page moves. It also means the file
+  is only fetched by a page that actually sets a script capital A.
+
+  Alex Brush was chosen off a comparison of eleven scripts (the sheet and the
+  script that drew it are in _scratch/env/). What decides this is not the
+  letter, it is the join. Great Vibes runs an exit stroke out of its A into the
+  next letter, a borrowed A does not, and most candidates leave the word split
+  open at the seam. Alex Brush is within 0.02em of closing it on its own
+  metrics, and matches Great Vibes on weight, slant and stroke contrast, so
+  there is nothing to correct.
+
+  size-adjust stands the borrowed A at the same ink height as the one it
+  replaces, 0.84em. Without it the A is about 5% short and reads as a slip
+  rather than as a letter.
+
+  The file is Alex Brush (OFL, licence alongside it) subsetted to U+0041 alone,
+  which is 2KB rather than 113KB. Regenerate with:
+
+      python -m fontTools.subset AlexBrush-Regular.ttf --unicodes=U+0041 \
+          --output-file=app/fonts/AlexBrush-CapitalA.ttf --no-hinting
+
+  adjustFontFallback is off because a metric-matched fallback for a
+  single-glyph face is meaningless: Great Vibes is standing right behind it.
+*/
+const capitalA = localFont({
+  src: './fonts/AlexBrush-CapitalA.ttf',
+  weight: '400',
+  style: 'normal',
+  variable: '--font-script-a',
+  display: 'swap',
+  adjustFontFallback: false,
+  declarations: [
+    { prop: 'unicode-range', value: 'U+0041' },
+    { prop: 'size-adjust', value: '105.7%' },
+  ],
 });
 
 // Body copy. Stands in for Canela Light, which is not freely licensed.
@@ -88,7 +129,7 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${scriptFace.variable} ${cormorant.variable} ${cinzel.variable} ${rufina.variable} ${amiri.variable}`}
+      className={`${scriptFace.variable} ${capitalA.variable} ${cormorant.variable} ${cinzel.variable} ${rufina.variable} ${amiri.variable}`}
     >
       <body className="antialiased">{children}</body>
     </html>

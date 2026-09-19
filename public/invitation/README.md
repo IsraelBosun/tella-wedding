@@ -11,7 +11,7 @@ frame, so the page is presentable before a single asset exists.
     images/hero.jpg         9:16 poster frame for the hero clip  (media.heroImage)
     images/couple-1.webp    3:4 portrait for Our Story          (story.photo)
     images/couple-2.webp    3:4 portrait for the gallery        (gallery.photos[0].src)
-    images/guest-attire.webp cutout, no frame, no background    (dressCode.illustration)
+    images/guest-attire-white-gold.webp cutout, no frame, no background (dressCode.illustration)
     video/opening.mp4       muted envelope clip, plays on tap   (media.coverVideo)
     images/venue-waterfront.jpg 4:3 photo of the venue, above the map (venue.image)
     video/hero-animation.mp4    9:16 muted loop behind the hero (media.heroVideo)
@@ -32,10 +32,61 @@ cropped rather than resizing the section around it.
 The ♫ control in the nav only appears once `media.audio` is set, so there is
 never a music button over silence.
 
-Do not reference the original site's CDN URLs from application code. The files
-that are here now came from the reference site and are placeholders: replace
-images/cover.png and video/opening.mp4 before this goes out, since both carry
-another couple's monogram.
+Do not reference the original site's CDN URLs from application code.
+
+## The seal
+
+images/cover.png and video/opening.mp4 came from the reference site carrying
+its couple's D&A monogram. Both have been re-lettered to A&S in place, so the
+seal now reads the same as `monogram` in lib/mockWedding.js and as the drawn
+EnvelopeArtwork fallback.
+
+The scripts that did it are in `_scratch/env/`, and are worth keeping because
+the same run re-letters both files for any pair of initials: `cover.py` for the
+still, `render_video.py` for all 196 frames of the clip. In outline, the old
+gold is masked and the wax under it rebuilt by diffusion from the rim, with the
+engraved ring put back as a function of radius alone, since no letter is
+radially symmetric. The new initials are set in Petit Formal Script, turned
+into a height map and lit, so they are relieved metal rather than flat type.
+In the clip the seal is tracked per frame for position, width and height
+separately, because the flap tilts as it opens and the seal foreshortens.
+
+Two things there are easy to get wrong and are commented at length in the
+source: the mark is lit off the old gold rather than off the wax around it (at
+t=2.8s a highlight sweeps the seal, and the wax dims while the gold flares), and
+the encode must not pass `-shortest`, which cuts the video to the shorter audio
+track and throws away the last four frames of the flap opening.
+
+Petit Formal Script is the face app/layout.jsx says it wants but could not
+fetch, because next/font/google reaches for fonts.gstatic.com, which this
+machine cannot reach. The copy under `_scratch/env/fonts/` came from jsdelivr,
+which it can. That is only a build-time problem for the site's own CSS; nothing
+here is affected, since the letters are baked into the two files.
+
+## Guest attire
+
+images/guest-attire-white-gold.webp is cut from tella-wedding-guests.jpg at the
+repo root, by `_scratch/env/guests.py`. It is worth keeping that script: the
+couple have changed the guest colours once already, and the same illustration
+exists in more than one colourway (tella_guest_dress.png is the earlier blue
+and rose, which was images/guest-attire.webp until it was dropped).
+
+The filename carries the colourway on purpose. If it changes again, write the
+new file under a new name rather than over this one: browsers and Next's image
+optimiser both cache on the URL, so overwriting in place leaves the old drawing
+on screen and looks exactly like a change that did not take.
+
+The one thing that matters in there is how the background comes off. The guests
+are dressed in white on a white ground, so any threshold on whiteness takes the
+garments with the backdrop. What separates them is connectivity, not colour:
+the backdrop is a single region running to the edge of the frame and every
+white garment is an island inside the drawing, so only the near-white
+components that touch the border are dropped.
+
+The six chips under the drawing are sampled from the file, not chosen to sit
+beside it, so a guest holding the illustration against a swatch is comparing a
+colour to itself. They are the guests' colours and they are not the site's: the
+page stays blue and rose, and nothing in app/globals.css answers to them.
 
 ## Where the artwork came from
 
@@ -87,11 +138,9 @@ couple rather than merely unstyled:
                            Replaced by images/venue-waterfront.jpg, which is
                            the real place.
     images/dress-code.png  sherwani and lehenga. Replaced by
-                           images/guest-attire.webp, which is Yoruba attire in
-                           the couple's own two colours.
+                           images/guest-attire-white-gold.webp, Yoruba attire in
+                           the white and gold the guests are asked to wear.
     images/gift-card.png   a gift-list note this invitation has no section for.
-    images/cover.png       carries another couple's D&A monogram.
-    video/opening.mp4      same D&A seal, in every frame.
 
 The unused floral sprays (bouquet, corner-b, corner-c, corner-tall, spray-low,
 spray-wide, peony) and dividers (crest, scroll, star, the three drops) are kept

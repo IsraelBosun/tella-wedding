@@ -6,7 +6,7 @@ import { OrnamentalDivider } from './OrnamentalDivider';
 /**
  * Two actions, no form.
  *
- * The couple published a phone number and nothing else, so the honest thing is
+ * The couple published phone numbers and nothing else, so the honest thing is
  * to hand the visitor straight to the dialler or to WhatsApp with the message
  * already written. There is no backend to go down, no submission to be lost,
  * and it works on the patchy connections a lot of these guests will be on.
@@ -58,16 +58,25 @@ export function RSVPSection({ rsvp }) {
         </p>
 
         {/*
-          The number is shown as text as well as wired to the buttons, because
-          plenty of guests will forward this to someone who needs to write it
-          down rather than tap it.
+          Every number is printed as well as wired up, because plenty of guests
+          will forward this to someone who needs to write it down rather than
+          tap it. They are links too, so a second number is reachable without
+          going through the button, which can only dial one of them.
         */}
-        <p className="tabular mt-4 font-caps text-[1.2rem] tracking-[0.14em] text-blue-ink sm:text-[1.34rem]">
-          {rsvp.phone}
-        </p>
+        <div className="mt-4 flex flex-col items-center gap-1">
+          {rsvp.phones.map((phone) => (
+            <a
+              key={phone}
+              href={tel(phone)}
+              className="tabular font-caps text-[1.2rem] tracking-[0.14em] text-blue-ink transition-colors hover:text-blue-deep sm:text-[1.34rem]"
+            >
+              {phone}
+            </a>
+          ))}
+        </div>
 
         <div className="relative mt-11 flex flex-col gap-3 sm:flex-row">
-          <Action href={tel(rsvp.phone)} primary>
+          <Action href={tel(rsvp.phones[0])} primary>
             Call to RSVP
           </Action>
 
