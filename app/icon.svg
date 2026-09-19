@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Cusped arch">
+  <!--
+    A browser tab is 16 pixels. That rules out the monogram, which turns to
+    mush, and it rules out an outline, which loses its strokes. What survives
+    at that size is a filled silhouette with one point of contrast, so this is
+    the site's cusped arch cut out of the deep blue, with a single gold dot
+    where the lamp hangs in the artwork.
+  -->
+  <rect width="32" height="32" rx="7" fill="#27455E" />
+  <path
+    d="M9 25.5 V15.2 C9 10.6 12.1 8 16 5 C19.9 8 23 10.6 23 15.2 V25.5 Z"
+    fill="#FBF8F6"
+  />
+  <circle cx="16" cy="16.6" r="2" fill="#C2A567" />
+</svg>

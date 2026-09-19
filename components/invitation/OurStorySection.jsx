@@ -29,12 +29,14 @@ export function OurStorySection({ story, monogram }) {
         </div>
 
         {/*
-          Set larger than the prose around it and in the script face, so the
-          quote reads as the couple's own handwriting in the middle of the page.
+          Set larger than the prose around it, in the body face italic rather
+          than the script. This line carries a borrowed word, "Wonderwall",
+          and a swash cursive turned it into a puzzle at the exact moment the
+          story lands. Italic at this size is still a change of voice.
         */}
         <blockquote className="my-14 flex flex-col items-center text-center">
           <span className="rule-fade w-24" />
-          <p className="script-heading foil mt-7 text-[34px] leading-[1.3] sm:text-[42px]">
+          <p className="stamp-rose mt-7 font-serif text-[26px] leading-[1.45] font-medium italic sm:text-[32px]">
             &ldquo;{story.pullQuote}&rdquo;
           </p>
           <span className="rule-fade mt-7 w-24" />

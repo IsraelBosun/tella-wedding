@@ -2,16 +2,31 @@ import {
   Amiri,
   Cinzel,
   Cormorant_Garamond,
-  Imperial_Script,
+  Great_Vibes,
   Rufina,
 } from 'next/font/google';
 import './globals.css';
 
-// Headings and couple names. The reference uses Imperial Script throughout.
-const imperialScript = Imperial_Script({
+/*
+  Headings and couple names.
+
+  Third face here, and the reason each one was dropped is the same: the capital
+  letters. Imperial Script had hairline strokes and looping joins. Great Vibes
+  was legible in the lowercase, but it draws its capital A as an enlarged
+  single-storey "a" with a tall entry stroke, so the groom's own name opened on
+  what looked like a small letter.
+
+  The intended replacement is Petit Formal Script, which is built on copperplate
+  like the others but keeps the roman skeleton in its capitals: A has a real
+  apex and crossbar, so it cannot be read as anything else. Swapping to it needs
+  one fetch from Google Fonts, which this machine could not reach at the time of
+  writing, and an un-downloadable family is a hard build error rather than a
+  fallback. Change both the import and the call below once the network is back.
+*/
+const scriptFace = Great_Vibes({
   subsets: ['latin'],
   weight: ['400'],
-  variable: '--font-imperial-script',
+  variable: '--font-script-face',
   display: 'swap',
 });
 
@@ -65,7 +80,7 @@ export const metadata = {
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#FDF4EB',
+  themeColor: '#FBF8F6',
 };
 
 export default function RootLayout({ children }) {
@@ -73,7 +88,7 @@ export default function RootLayout({ children }) {
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${imperialScript.variable} ${cormorant.variable} ${cinzel.variable} ${rufina.variable} ${amiri.variable}`}
+      className={`${scriptFace.variable} ${cormorant.variable} ${cinzel.variable} ${rufina.variable} ${amiri.variable}`}
     >
       <body className="antialiased">{children}</body>
     </html>

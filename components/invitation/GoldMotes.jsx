@@ -38,7 +38,7 @@ export function GoldMotes({ className = '' }) {
       {MOTES.map((mote, i) => (
         <span
           key={i}
-          className="animate-mote absolute bottom-0 rounded-full bg-gold-bright"
+          className="animate-mote absolute bottom-0 rounded-full bg-metal"
           style={{
             left: mote.left,
             width: mote.size,

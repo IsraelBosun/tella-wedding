@@ -1,43 +1,90 @@
 @import "tailwindcss";
 
 /*
-  Tokens extracted from the Timeless Grace reference (see _scratch/ref/SPEC.md),
-  extended with the white-and-gold palette this couple asked for.
-
   Tailwind v4 reads these from @theme, not tailwind.config.js, so every name
   here generates real utilities including variants and /alpha modifiers.
+
+  The structure came from the Timeless Grace reference (see _scratch/ref/SPEC.md).
+  The white-and-gold palette it shipped with is frozen in
+  _scratch/theme-gold-backup/ if it is ever wanted back.
+*/
+/*
+  The couple's two colours, and the colours the guests are asked to wear:
+  a soft sky blue and a dusty rose. Everything below is derived from them.
+
+  The two colours themselves cannot carry text. Measured against this page the
+  blue is about 2.2:1 and the rose about 2.0:1, where 4.5:1 is the floor for
+  small type, so they are surfaces, fills and ornament. Anything a guest has to
+  read uses a deepened version of them, and every one of those is checked
+  against the ground in the comments below.
 */
 @theme {
-  /* Surfaces */
-  --color-ivory: #FDF4EB;
-  --color-cream: #F9F0E0;
-  --color-parchment: #F2E9DF;
-  --color-beige: #EEDCC3;
+  /*
+    Surfaces. The ground used to be a warm ivory, which is wrong under a cool
+    blue: warm paper plus cool ink goes muddy. It is now a near-neutral white
+    with the warmth pulled most of the way out, so both colours sit true on it.
+  */
+  --color-paper: #FBF8F6;
+  --color-shell: #F5F1EC;
+  --color-mist: #EAF1F7;
+  --color-blush: #F8EDEB;
 
   /*
-    The reference has no dark brown anywhere. All text is gold-brown, which is
-    most of why it reads as printed stationery rather than a web page.
+    Blue, the lead. Five steps, and only the last three may hold text.
+      blue       the swatch. Ornament and fill only.
+      blue-mid   4.6:1. Quiet captions, the smallest labels.
+      blue-deep  6.8:1. Eyebrows, rules, borders, numerals.
+      blue-ink   9.4:1. Body copy, headings, anything that must not be missed.
   */
-  --color-ink: #5F4A1F;
-  --color-ink-soft: #7A6330;
-  --color-gold: #94742C;
-  --color-gold-deep: #5C4718;
-  --color-gold-soft: #9A7C3C;
-  --color-gold-bright: #C9A44C;
-  --color-rust: #8A5514;
+  --color-blue-pale: #C7DDEC;
+  --color-blue: #7BB0D6;
+  --color-blue-mid: #4F7591;
+  --color-blue-deep: #35597A;
+  --color-blue-ink: #27455E;
+
+  /*
+    Rose, the second voice. Carries the Engagement, the bride's side of the
+    arch card and the one pull quote, so the page turns warm exactly where the
+    day does.
+      rose-deep  3.7:1. Fills and large type only, never small text.
+      rose-ink   7.5:1. Safe anywhere.
+  */
+  --color-rose-pale: #F0D5D2;
+  --color-rose: #DDA6A2;
+  --color-rose-deep: #B5736C;
+  --color-rose-ink: #7A403B;
+
+  /*
+    Gold, demoted. It is no longer the theme, it is the metal: hairlines, the
+    foil on the couple's names and the date. It has to stay, because every
+    ornament on this site is a baked gold PNG and both videos are cream and
+    gold, so a page with no gold in the type would fight its own artwork.
+  */
+  --color-metal: #C2A567;
+  --color-metal-deep: #8A6D33;
+
+  /* Text. Blue-derived, so prose and accent belong to the same family. */
+  --color-ink: #27455E;
+  --color-ink-soft: #4A6D85;
 
   /* Reserved for the few places that carry real emphasis. */
-  --color-ink-strong: #42330F;
+  --color-ink-strong: #1B3347;
 
   /*
     Four roles, matching the reference, plus Arabic:
-      script  headings and couple names   (Imperial Script)
+      script  headings and couple names   (Great Vibes)
       serif   body copy at 17-21px        (Cormorant, standing in for Canela Light)
-      caps    letterspaced micro labels   (Cinzel)
+      caps    letterspaced micro labels, monograms and times (Cinzel)
       display scratch tile labels         (Rufina)
       arabic  the Bismillah               (Amiri)
+
+    The script face is for whole phrases set large. It is not used for the
+    monogram or for clock times: two or three letters and a string of digits
+    give the eye nothing to recover from, so a cursive there is decoration the
+    reader has to decode. Those go to Cinzel, which is an engraved face and
+    the register a printed invitation uses for exactly those two things.
   */
-  --font-script: var(--font-imperial-script), "Segoe Script", cursive;
+  --font-script: var(--font-script-face), "Segoe Script", cursive;
   --font-serif: var(--font-cormorant), Georgia, "Times New Roman", serif;
   --font-caps: var(--font-cinzel), Georgia, serif;
   --font-display: var(--font-rufina), Georgia, serif;
@@ -58,12 +105,12 @@
   }
 
   body {
-    background-color: var(--color-ivory);
+    background-color: var(--color-paper);
     color: var(--color-ink);
     font-family: var(--font-serif);
     /*
-      Cormorant is drawn on a light armature and needs 400 as its floor on a
-      warm ground. 500 is the working body weight; 300 disappeared entirely,
+      Cormorant is drawn on a light armature and needs 400 as its floor on
+      this ground. 500 is the working body weight; 300 disappeared entirely,
       which is what "no bold parts" was describing.
     */
     font-weight: 500;
@@ -83,24 +130,24 @@
   }
 
   ::selection {
-    background-color: var(--color-gold-bright);
-    color: var(--color-cream);
+    background-color: var(--color-blue-pale);
+    color: var(--color-blue-ink);
   }
 
   ::-webkit-scrollbar { width: 8px; }
-  ::-webkit-scrollbar-track { background: var(--color-parchment); }
+  ::-webkit-scrollbar-track { background: var(--color-mist); }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-gold-soft);
+    background: var(--color-blue-mid);
     border-radius: 4px;
   }
-  ::-webkit-scrollbar-thumb:hover { background: var(--color-gold-deep); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-blue-ink); }
 }
 
 @layer utilities {
   .tabular { font-variant-numeric: tabular-nums; }
 
   /*
-    Imperial Script sits high in its em box and clips its own descenders at
+    The script face sits high in its em box and clips its own descenders at
     tight line heights, so script headings get room rather than overflow-hidden.
   */
   .script-heading {
@@ -111,45 +158,56 @@
   }
 
   /*
-    Foil stamp. Real gold leaf is never one flat colour: it is a gradient with a
-    bright band running across it. Clipping that gradient to the glyphs is the
-    difference between "gold-coloured text" and something that looks pressed
-    into the paper.
+    The couple's mark. Cinzel small caps with air between the letters, the way
+    a monogram is engraved on a seal or blind-stamped on a card. `text-indent`
+    matches the tracking, because letter-spacing is added after the final
+    letter too and would otherwise sit the mark left of centre.
   */
-  /*
-    Every stop on this ramp clears 3:1 against the ivory ground, which is the
-    large-text threshold. The previous ramp peaked at #FFF6E2: lighter than the
-    page itself, so the brightest part of every heading was a hole in it. A foil
-    highlight that cannot be read is not a highlight.
-  */
-  .foil {
-    background-image: linear-gradient(
-      100deg,
-      #43330E 0%,
-      #664F1B 14%,
-      #8C6E27 32%,
-      #B0862F 47%,
-      #8C6E27 62%,
-      #614B19 82%,
-      #3D2F0C 100%
-    );
-    background-size: 220% 100%;
-    background-position: 0% 50%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* Slow travel of the bright band, so the foil catches light as you read. */
-  .foil-animate {
-    animation: foil-sweep 9s ease-in-out infinite;
+  .monogram {
+    font-family: var(--font-caps);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-indent: 0.14em;
+    line-height: 1.2;
   }
 
   /*
-    Paper. A fine fibre noise plus a warm vignette, laid over the flat ivory.
+    Clock times. Digits are where a script face costs the most: there is no
+    word shape to fall back on, so a misread 9 is simply a wrong hour.
+  */
+  .time-stamp {
+    font-family: var(--font-caps);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.07em;
+    line-height: 1.2;
+  }
+
+  /*
+    Stamped type: the one heading colour, flat.
+
+    This used to be a gradient clipped to the glyphs, imitating gold leaf
+    catching light. It is flat colour now because the couple asked for no
+    gradients, and flat is the honest version of this anyway: a printed
+    invitation is one ink laid on paper, not a sheen.
+  */
+  .stamp { color: var(--color-blue-ink); }
+
+  /*
+    The metal, kept for the couple's names and the date stamp only. Gold now
+    appears about three times on the page instead of on every heading, which
+    is what stops it competing with the two colours the wedding actually is.
+  */
+  .stamp-gold { color: var(--color-metal-deep); }
+
+  /* The warm half of the scheme, for the Engagement and the pull quote. */
+  .stamp-rose { color: var(--color-rose-ink); }
+
+  /*
+    Paper. Fibre noise over the flat ground, and nothing else: the two radial
+    washes that used to sit under it were a vignette, which is a gradient.
     Fixed attachment means the grain belongs to the sheet, not to the scroll,
-    which is what stops long pages reading as flat #FDF4EB.
+    which is what stops a long page reading as one flat fill.
   */
   .paper::before {
     content: "";
@@ -159,8 +217,6 @@
     pointer-events: none;
     opacity: 0.38;
     background-image:
-      radial-gradient(ellipse 120% 80% at 50% 0%, rgba(255, 252, 245, 0.9) 0%, transparent 55%),
-      radial-gradient(ellipse 100% 70% at 50% 100%, rgba(222, 197, 152, 0.22) 0%, transparent 60%),
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.16'/%3E%3C/svg%3E");
   }
 
@@ -192,23 +248,18 @@
   .relief {
     filter:
       drop-shadow(1px 1.5px 0 rgba(255, 255, 255, 0.9))
-      drop-shadow(-1px -1px 1px rgba(150, 118, 54, 0.28))
-      drop-shadow(0 6px 14px rgba(125, 99, 50, 0.13));
+      drop-shadow(-1px -1px 1px rgba(80, 112, 138, 0.28))
+      drop-shadow(0 6px 14px rgba(39, 69, 94, 0.13));
   }
 
   /*
-    Edge-to-edge hairline that fades out at both ends, so a rule never collides
-    with the page margin the way a hard 1px border does.
+    The shared hairline. It used to fade out at both ends, which was a
+    gradient; it is now a flat rule that simply stops, kept short and centred
+    by the caller so it never collides with the page margin.
   */
   .rule-fade {
     height: 1px;
-    background-image: linear-gradient(
-      to right,
-      transparent,
-      rgba(166, 133, 71, 0.45) 22%,
-      rgba(166, 133, 71, 0.45) 78%,
-      transparent
-    );
+    background-color: rgba(53, 89, 122, 0.42);
   }
 }
 
@@ -248,11 +299,6 @@
   0%   { opacity: 0; }
   25%  { opacity: 1; }
   100% { opacity: 0; }
-}
-
-@keyframes foil-sweep {
-  0%, 100% { background-position: 0% 50%; }
-  50%      { background-position: 100% 50%; }
 }
 
 /* Slow drift for the hero ornament, a few pixels over several seconds. */

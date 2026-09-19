@@ -7,6 +7,8 @@ import { formatEventDate } from '@/lib/utils';
 import { useAmbientAudio } from '@/components/invitation/useAmbientAudio';
 import { OpeningCover } from '@/components/invitation/OpeningCover';
 import { NavBar } from '@/components/invitation/NavBar';
+import { MusicToggle } from '@/components/invitation/MusicToggle';
+import { ScrollProgress } from '@/components/invitation/ScrollProgress';
 import { HeroSection } from '@/components/invitation/HeroSection';
 import { DateReveal } from '@/components/invitation/DateReveal';
 import { OurStorySection } from '@/components/invitation/OurStorySection';
@@ -16,6 +18,7 @@ import { DressCodeSection } from '@/components/invitation/DressCodeSection';
 import { VenueSection } from '@/components/invitation/VenueSection';
 import { GallerySection } from '@/components/invitation/GallerySection';
 import { CountdownSection } from '@/components/invitation/CountdownSection';
+import { GiftSection } from '@/components/invitation/GiftSection';
 import { RSVPSection } from '@/components/invitation/RSVPSection';
 import { ClosingSection } from '@/components/invitation/ClosingSection';
 
@@ -31,20 +34,25 @@ export default function InvitationPage() {
   const audio = useAmbientAudio(data.media?.audio, isOpened);
 
   return (
-    <div className="paper relative w-full bg-ivory">
+    <div className="paper relative w-full bg-paper">
       {audio.element}
 
       <OpeningCover
         isOpened={isOpened}
         onOpen={() => setIsOpened(true)}
+        onTap={audio.start}
         monogram={data.monogram}
-        names={names}
-        bismillah={data.bismillah}
         coverImage={data.media?.coverImage}
         coverVideo={data.media?.coverVideo}
       />
 
       {isOpened && <NavBar monogram={data.monogram} audio={audio} />}
+
+      {/* Reading progress, a hairline above the nav. */}
+      {isOpened && <ScrollProgress />}
+
+      {/* Floating pause control, kept clear of the cover sequence. */}
+      {isOpened && <MusicToggle audio={audio} />}
 
       {/* Kept mounted so the cover lifts off finished content, not a blank page. */}
       <motion.main
@@ -75,18 +83,22 @@ export default function InvitationPage() {
           date={eventDate}
         />
 
-        <FamiliesSection families={data.families} />
-
-        <DressCodeSection
-          dressCode={data.dressCode}
-          monogram={data.monogram}
+        <FamiliesSection
+          families={data.families}
+          groom={data.groom}
+          bride={data.bride}
+          bismillah={data.bismillah}
         />
+
+        <DressCodeSection dressCode={data.dressCode} />
 
         <VenueSection venue={data.venue} />
 
         <GallerySection gallery={data.gallery} monogram={data.monogram} />
 
         <CountdownSection date={data.date} countdown={data.countdown} />
+
+        <GiftSection gifts={data.gifts} />
 
         <RSVPSection rsvp={data.rsvp} />
 

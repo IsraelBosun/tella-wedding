@@ -42,3 +42,6 @@ next-env.d.ts
 
 # scratch / local reference material
 /_scratch
+
+# dev server log, written by the local run
+_scratch_dev.log

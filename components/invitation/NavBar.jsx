@@ -67,7 +67,7 @@ export function NavBar({ monogram, audio }) {
         initial={false}
         animate={{ y: shown || menuOpen ? 0 : '-100%' }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed inset-x-0 top-0 z-50 border-b border-gold/15 bg-ivory/85 backdrop-blur-md"
+        className="fixed inset-x-0 top-0 z-50 border-b border-blue-deep/15 bg-paper/85 backdrop-blur-md"
       >
         <div className="mx-auto flex h-14 w-full max-w-3xl items-center justify-between px-5 sm:h-16 sm:px-7">
           {audio.hasAudio ? (
@@ -77,7 +77,7 @@ export function NavBar({ monogram, audio }) {
               aria-label={
                 audio.isPlaying ? 'Mute background music' : 'Play background music'
               }
-              className="flex size-9 items-center justify-center rounded-full text-gold transition-colors hover:text-gold-deep"
+              className="flex size-9 items-center justify-center rounded-full text-blue-deep transition-colors hover:text-blue-ink"
             >
               <MusicGlyph isPlaying={audio.isPlaying} />
             </button>
@@ -88,7 +88,7 @@ export function NavBar({ monogram, audio }) {
 
           <a
             href="#top"
-            className="script-heading foil text-[26px] sm:text-[30px]"
+            className="monogram stamp text-[20px] sm:text-[23px]"
             onClick={() => setMenuOpen(false)}
           >
             {monogram}
@@ -99,7 +99,7 @@ export function NavBar({ monogram, audio }) {
               <a
                 key={link.href}
                 href={link.href}
-                className="eyebrow text-[0.56rem] text-gold-deep transition-colors hover:text-gold-deep"
+                className="eyebrow text-[0.56rem] text-blue-ink transition-colors hover:text-blue-ink"
               >
                 {link.label}
               </a>
@@ -116,12 +116,12 @@ export function NavBar({ monogram, audio }) {
             <motion.span
               animate={menuOpen ? { rotate: 45, y: 3.5 } : { rotate: 0, y: 0 }}
               transition={{ duration: 0.25 }}
-              className="block h-px w-5 bg-gold-deep"
+              className="block h-px w-5 bg-blue-ink"
             />
             <motion.span
               animate={menuOpen ? { rotate: -45, y: -3.5 } : { rotate: 0, y: 0 }}
               transition={{ duration: 0.25 }}
-              className="block h-px w-5 bg-gold-deep"
+              className="block h-px w-5 bg-blue-ink"
             />
           </button>
 
@@ -137,7 +137,7 @@ export function NavBar({ monogram, audio }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
-            className="paper fixed inset-0 z-40 flex flex-col items-center justify-center gap-2 bg-ivory md:hidden"
+            className="paper fixed inset-0 z-40 flex flex-col items-center justify-center gap-2 bg-paper md:hidden"
           >
             {LINKS.map((link, i) => (
               <motion.a
@@ -147,7 +147,7 @@ export function NavBar({ monogram, audio }) {
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.06 * i + 0.08, duration: 0.45 }}
-                className="script-heading foil relative z-10 py-2 text-[38px]"
+                className="script-heading stamp relative z-10 py-2 text-[38px]"
               >
                 {link.label}
               </motion.a>

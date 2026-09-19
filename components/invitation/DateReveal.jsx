@@ -47,7 +47,7 @@ export function DateReveal({
 
   const allDone = TILES.every((key) => revealed[key]);
 
-  // Champagne foil, painted a little deeper than the tile face beneath it so
+  // Champagne stamp, painted a little deeper than the tile face beneath it so
   // there is an obvious surface to scratch.
   const paintFoil = useCallback((canvas) => {
     const rect = canvas.getBoundingClientRect();
@@ -61,22 +61,12 @@ export function DateReveal({
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.globalCompositeOperation = 'source-over';
 
-    const base = ctx.createLinearGradient(0, 0, rect.width, rect.height);
-    base.addColorStop(0, '#E9DAC0');
-    base.addColorStop(0.45, '#D6BF96');
-    base.addColorStop(1, '#E5D3B4');
-    ctx.fillStyle = base;
+    // Flat cover, hatched. The hatching is what reads as a scratch panel now
+    // that there is no sheen across it.
+    ctx.fillStyle = '#C7DDEC';
     ctx.fillRect(0, 0, rect.width, rect.height);
 
-    // Diagonal sheen, so the foil catches light like pressed paper.
-    const sheen = ctx.createLinearGradient(0, rect.height, rect.width, 0);
-    sheen.addColorStop(0, 'rgba(255, 255, 255, 0)');
-    sheen.addColorStop(0.48, 'rgba(255, 253, 248, 0.42)');
-    sheen.addColorStop(0.62, 'rgba(255, 255, 255, 0)');
-    ctx.fillStyle = sheen;
-    ctx.fillRect(0, 0, rect.width, rect.height);
-
-    ctx.strokeStyle = 'rgba(166, 133, 71, 0.16)';
+    ctx.strokeStyle = 'rgba(53, 89, 122, 0.16)';
     ctx.lineWidth = 1;
     for (let x = -rect.height; x < rect.width; x += 7) {
       ctx.beginPath();
@@ -240,8 +230,7 @@ export function DateReveal({
             aria-hidden="true"
             className="animate-reveal-flash pointer-events-none fixed inset-0 z-40 opacity-0"
             style={{
-              background:
-                'radial-gradient(ellipse 65% 45% at 50% 50%, rgba(201,139,56,0.16) 0%, rgba(255,239,208,0.08) 38%, transparent 72%)',
+              background: 'rgba(123,176,214,0.18)',
             }}
           />
         </Portal>
@@ -271,10 +260,8 @@ export function DateReveal({
                 <div
                   className="relative aspect-square w-full overflow-hidden rounded-xl"
                   style={{
-                    background:
-                      'radial-gradient(circle at 48% 32%, rgba(255,255,255,0.96) 0%, rgba(255,250,241,0.86) 34%, transparent 67%), linear-gradient(145deg, #FFFDF8 0%, #FAF1E5 48%, #EEDCC3 100%)',
-                    boxShadow:
-                      'inset 0 0 0 1px rgba(255,255,255,0.78), inset 0 -20px 32px rgba(184,119,35,0.055)',
+                    background: '#FFFFFF',
+                    boxShadow: 'inset 0 0 0 1px rgba(53,89,122,0.18)',
                   }}
                 >
                   <div className="absolute inset-0 flex items-center justify-center px-1">
@@ -295,7 +282,7 @@ export function DateReveal({
                   />
                 </div>
 
-                <span className="mt-3 font-display text-[clamp(9px,2vw,11px)] text-rust uppercase [letter-spacing:4px] [text-shadow:0_1px_0_rgba(255,246,225,0.5)]">
+                <span className="mt-3 font-display text-[clamp(9px,2vw,11px)] text-rose-ink uppercase [letter-spacing:4px] [text-shadow:0_1px_0_rgba(255,255,255,0.55)]">
                   {key}
                 </span>
               </div>
@@ -309,14 +296,14 @@ export function DateReveal({
           <div className="mt-11 flex min-h-[7.5rem] flex-col items-center justify-start">
             {!allDone ? (
               <>
-                <p className="font-serif text-[17px] font-medium text-gold">
+                <p className="font-serif text-[17px] font-medium text-blue-deep">
                   ✦ {hint} ✦
                 </p>
                 {/* Keyboard and assistive tech route to the same outcome. */}
                 <button
                   type="button"
                   onClick={revealAll}
-                  className="mt-4 font-caps text-[0.58rem] tracking-[0.2em] text-gold-deep uppercase underline underline-offset-4 transition-colors hover:text-gold-deep"
+                  className="mt-4 font-caps text-[0.58rem] tracking-[0.2em] text-blue-ink uppercase underline underline-offset-4 transition-colors hover:text-blue-ink"
                 >
                   Reveal instead
                 </button>
@@ -330,7 +317,7 @@ export function DateReveal({
               >
                 <span className="rule-fade w-40" />
 
-                <p className="mt-6 font-caps text-[0.82rem] tracking-[0.2em] text-gold-deep uppercase sm:text-[0.95rem]">
+                <p className="mt-6 font-caps text-[0.82rem] tracking-[0.2em] text-blue-ink uppercase sm:text-[0.95rem]">
                   {event.short}
                 </p>
 

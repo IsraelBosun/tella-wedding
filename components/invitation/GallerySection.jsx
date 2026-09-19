@@ -27,7 +27,16 @@ export function GallerySection({ gallery, monogram }) {
       >
         <SectionHeading eyebrow={gallery.eyebrow} heading={gallery.heading} />
 
-        <div className="mt-14 flex flex-col gap-12 sm:flex-row sm:items-start sm:gap-8">
+        {/*
+          The offset pair is the designed case. With a single photograph the
+          row would stretch it across the whole spread, so it is capped and
+          centred instead.
+        */}
+        <div
+          className={`mt-14 flex flex-col gap-12 sm:flex-row sm:items-start sm:gap-8 ${
+            gallery.photos.length === 1 ? 'mx-auto max-w-[380px]' : ''
+          }`}
+        >
           {gallery.photos.map((photo, index) => (
             <motion.div
               key={photo.alt}

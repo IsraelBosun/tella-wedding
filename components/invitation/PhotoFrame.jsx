@@ -21,7 +21,7 @@ export function PhotoFrame({
   return (
     <figure className={`w-full ${className}`}>
       <div
-        className={`relative ${ratio} w-full overflow-hidden rounded-[2px] bg-parchment shadow-[0_26px_60px_-38px_rgba(125,99,50,0.75)]`}
+        className={`relative ${ratio} w-full overflow-hidden rounded-[2px] bg-mist shadow-[0_26px_60px_-38px_rgba(39,69,94,0.75)]`}
       >
         {src ? (
           <Image
@@ -36,32 +36,28 @@ export function PhotoFrame({
           <div
             role="img"
             aria-label={alt || 'Photograph to follow'}
-            className="absolute inset-0 flex flex-col items-center justify-center gap-6 px-8 text-center"
-            style={{
-              backgroundImage:
-                'radial-gradient(ellipse 90% 70% at 50% 35%, #FFFDF8 0%, #F6ECDD 55%, #EADCC4 100%)',
-            }}
+            className="absolute inset-0 flex flex-col items-center justify-center gap-6 bg-mist px-8 text-center"
           >
             {/* Double engraved rule, as on the cover artwork. */}
-            <span className="pointer-events-none absolute inset-3 border border-gold/25" />
-            <span className="pointer-events-none absolute inset-[18px] border border-gold/12" />
+            <span className="pointer-events-none absolute inset-3 border border-blue-deep/25" />
+            <span className="pointer-events-none absolute inset-[18px] border border-blue-deep/12" />
 
-            <span className="relative flex size-20 items-center justify-center rounded-full border border-gold/30 bg-ivory/60">
-              <span className="script-heading foil text-[26px]">{monogram}</span>
+            <span className="relative flex size-20 items-center justify-center rounded-full border border-blue-deep/30 bg-paper/60">
+              <span className="monogram stamp text-[19px]">{monogram}</span>
             </span>
 
-            <span className="eyebrow relative text-[0.5rem] text-gold-soft">
+            <span className="eyebrow relative text-[0.5rem] text-blue-mid">
               Photograph to follow
             </span>
           </div>
         )}
 
         {/* Warm inner edge, so the image sits in the paper instead of on it. */}
-        <span className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_rgba(166,133,71,0.28)]" />
+        <span className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_rgba(53,89,122,0.28)]" />
       </div>
 
       {caption && (
-        <figcaption className="mt-4 text-center font-serif text-[15px] leading-relaxed font-medium text-gold-soft italic">
+        <figcaption className="mt-4 text-center font-serif text-[15px] leading-relaxed font-medium text-blue-mid italic">
           {caption}
         </figcaption>
       )}

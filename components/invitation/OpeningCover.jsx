@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { CoverArtwork } from './CoverArtwork';
+import { EnvelopeArtwork } from './EnvelopeArtwork';
 
 /*
   The reference opens in three stages, not two:
@@ -20,9 +20,8 @@ const VIDEO_TIMEOUT_MS = 12000;
 export function OpeningCover({
   isOpened,
   onOpen,
+  onTap = null,
   monogram = '',
-  names = '',
-  bismillah = '',
   coverImage = null,
   coverVideo = null,
 }) {
@@ -61,6 +60,10 @@ export function OpeningCover({
   const handleTap = useCallback(() => {
     if (stage !== 'cover') return;
 
+    // This tap is the visitor's first gesture, so it is what lets the browser
+    // allow the music. Fire it here rather than waiting for the clip to end.
+    onTap?.();
+
     if (!coverVideo) {
       finish();
       return;
@@ -75,7 +78,7 @@ export function OpeningCover({
       if (played?.catch) played.catch(finish);
     });
     after(VIDEO_TIMEOUT_MS, finish);
-  }, [after, coverVideo, finish, stage]);
+  }, [after, coverVideo, finish, onTap, stage]);
 
   const handleVideoEnded = useCallback(() => {
     after(VIDEO_FADE_MS, finish);
@@ -90,20 +93,20 @@ export function OpeningCover({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1.4, ease: 'easeInOut' }}
-          className="fixed inset-0 z-50 bg-cream"
+          className="fixed inset-0 z-50 bg-shell"
         >
           {/* Stage one: the artwork, which is itself the control. */}
           <button
             type="button"
             onClick={handleTap}
             aria-label="Tap to open the invitation"
-            className="absolute inset-0 flex w-full cursor-pointer flex-col items-center justify-center px-6 focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-gold"
+            className="absolute inset-0 flex w-full cursor-pointer flex-col items-center justify-center px-6 focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-blue-deep"
           >
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.1, ease: 'easeOut' }}
-              className="flex h-[58vh] max-h-[560px] w-full max-w-[440px] items-center justify-center"
+              className="flex h-[70vh] max-h-[720px] w-full max-w-[440px] items-center justify-center"
             >
               {coverImage ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -114,34 +117,35 @@ export function OpeningCover({
                   className="block h-full max-w-full object-contain"
                 />
               ) : (
-                <CoverArtwork
-                  monogram={monogram}
-                  names={names}
-                  bismillah={bismillah}
-                />
+                <EnvelopeArtwork monogram={monogram} />
               )}
             </motion.div>
 
             <span className="animate-cover-cue-in absolute bottom-[11%] flex flex-col items-center gap-[7px] sm:bottom-[14%]">
-              <span className="animate-cover-label font-caps text-[11px] uppercase tracking-[0.26em] whitespace-nowrap text-gold-deep">
+              <span className="animate-cover-label font-caps text-[11px] uppercase tracking-[0.26em] whitespace-nowrap text-blue-ink">
                 Tap to open
               </span>
               {/* Chevron built from two borders on a rotated box, as on the reference. */}
-              <span className="animate-cover-chevron size-2.5 rotate-[-45deg] border-t-[1.5px] border-r-[1.5px] border-gold-deep/60" />
+              <span className="animate-cover-chevron size-2.5 rotate-[-45deg] border-t-[1.5px] border-r-[1.5px] border-blue-ink/60" />
             </span>
           </button>
 
-          {/* Stage two: the envelope clip, over the artwork. */}
+          {/*
+            Stage two: the envelope clip, over the artwork. It is boxed to the
+            same frame as the cover art above so the envelope stays exactly the
+            size it was when tapped, instead of jumping to full bleed.
+          */}
           {stage === 'video' && coverVideo && (
-            <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-cream">
+            <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center bg-shell px-6">
               <video
                 ref={videoRef}
                 src={coverVideo}
                 muted
                 playsInline
+                preload="auto"
                 onEnded={handleVideoEnded}
                 onError={finish}
-                className="block w-full max-w-[440px] object-contain"
+                className="block h-[70vh] max-h-[720px] w-full max-w-[440px] object-contain"
               />
             </div>
           )}

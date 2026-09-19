@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { SectionReveal } from './SectionReveal';
 import { SectionHeading } from './SectionHeading';
 
@@ -11,6 +12,18 @@ import { SectionHeading } from './SectionHeading';
  * The embed is the keyless `output=embed` form, so there is no API key in the
  * bundle to leak or expire, and Directions opens the visitor's own map app.
  */
+/*
+  The photograph and the map are framed identically so the pair reads as two
+  plates on one page. It is a mount, not a thick border: a hairline gold rule,
+  a narrow cream margin inside it, then a second hairline against the artwork.
+  Two 1px lines with air between them read as a frame at any size, where a
+  single heavy border would just look like a box.
+*/
+const FRAME =
+  'w-full max-w-[380px] rounded-[4px] border border-blue-deep/45 bg-shell/55 p-2 shadow-[0_24px_60px_-42px_rgba(39,69,94,0.8)]';
+
+const MAT = 'relative w-full overflow-hidden rounded-[2px] border border-blue-deep/25';
+
 export function VenueSection({ venue }) {
   return (
     <SectionReveal>
@@ -28,8 +41,31 @@ export function VenueSection({ venue }) {
           {venue.note}
         </p>
 
-        <div className="mx-auto mt-11 w-full max-w-[380px]">
-          <div className="relative aspect-square w-full overflow-hidden rounded-[3px] border border-gold/30 shadow-[0_24px_60px_-42px_rgba(125,99,50,0.8)]">
+        {/*
+          The place itself, above the map. A guest recognises the pavilion on
+          arrival from this; the map only tells them how to get there.
+        */}
+        {venue.image && (
+          <figure className={`mx-auto mt-11 ${FRAME}`}>
+            <div className={`${MAT} aspect-4/3`}>
+              <Image
+                src={venue.image}
+                alt={venue.imageAlt ?? venue.name}
+                fill
+                sizes="(max-width: 640px) 100vw, 380px"
+                className="object-cover"
+              />
+              {/* Keeps the photo in the invitation's warm register. */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-paper/12 mix-blend-multiply"
+              />
+            </div>
+          </figure>
+        )}
+
+        <div className={`mx-auto mt-6 ${FRAME}`}>
+          <div className={`${MAT} aspect-square`}>
             <iframe
               src={venue.mapUrl}
               title={`Map showing ${venue.name}`}
@@ -48,7 +84,7 @@ export function VenueSection({ venue }) {
           href={venue.directionsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-10 inline-flex items-center gap-3 rounded-full border border-gold/45 bg-cream/60 px-9 py-4 font-caps text-[0.6rem] tracking-[0.22em] text-gold-deep uppercase transition-colors hover:border-gold hover:bg-cream"
+          className="mt-10 inline-flex items-center gap-3 rounded-full border border-blue-deep/45 bg-shell/60 px-9 py-4 font-caps text-[0.6rem] tracking-[0.22em] text-blue-ink uppercase transition-colors hover:border-blue-deep hover:bg-shell"
         >
           Get Directions
           <span aria-hidden="true" className="text-[0.85em]">
