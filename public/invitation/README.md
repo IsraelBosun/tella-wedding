@@ -13,7 +13,7 @@ frame, so the page is presentable before a single asset exists.
     images/groom-child.webp 3:4 childhood photo, captioned      (story.childhood[0])
     images/bride-child.webp 3:4 childhood photo, captioned      (story.childhood[1])
     images/couple-2.webp    3:4 portrait for the gallery        (gallery.photos[0].src)
-    images/guest-attire-white-gold.webp cutout, no frame, no background (dressCode.illustration)
+    images/guest-attire-both-sides.webp cutout, no frame, no background (dressCode.illustration)
     video/opening.mp4       muted envelope clip, plays on tap   (media.coverVideo)
     images/venue-waterfront.jpg 4:3 photo of the venue, above the map (venue.image)
     video/hero-welcome.mp4      9:16 muted loop behind the hero (media.heroVideo)
@@ -37,6 +37,12 @@ The ♫ control in the nav only appears once `media.audio` is set, so there is
 never a music button over silence.
 
 Do not reference the original site's CDN URLs from application code.
+
+The unprocessed photographs and illustrations everything here was made from
+live in `_scratch/sources/`, which is not committed. They used to sit at the
+repo root. They are not duplicates of what is in this folder: everything here
+has been cut out, cropped, levelled or resized, and none of that is reversible
+from the file that ships, so the scripts in `_scratch/env/` read from there.
 
 ## The seal
 
@@ -99,23 +105,37 @@ floor of 37.9 dB. 5.7MB became 801KB, and the poster costs 167KB of that back.
 
 ## Guest attire
 
-images/guest-attire-white-gold.webp is cut from tella-wedding-guests.jpg at the
-repo root, by `_scratch/env/guests.py`. It is worth keeping that script: the
-couple have changed the guest colours once already, and the same illustration
-exists in more than one colourway (tella_guest_dress.png is the earlier blue
-and rose, which was images/guest-attire.webp until it was dropped).
+images/guest-attire-both-sides.webp is cut from dress-code-tella-wedding.jpg by
+`_scratch/env/dresscode.py`. It carries both dress codes in
+one drawing: the couple on the left in the bride's white and gold, the two on
+the right in the groom's wine and dusty rose. It replaced a white-and-gold-only
+drawing, which was itself cut from tella-wedding-guests.jpg by the earlier
+`_scratch/env/guests.py`. Both scripts are kept: the couple have changed the
+guest colours twice now, and the same illustration exists in several colourways
+(tella_guest_dress.png is the original blue and rose).
 
 The filename carries the colourway on purpose. If it changes again, write the
 new file under a new name rather than over this one: browsers and Next's image
 optimiser both cache on the URL, so overwriting in place leaves the old drawing
 on screen and looks exactly like a change that did not take.
 
-The one thing that matters in there is how the background comes off. The guests
-are dressed in white on a white ground, so any threshold on whiteness takes the
-garments with the backdrop. What separates them is connectivity, not colour:
-the backdrop is a single region running to the edge of the frame and every
-white garment is an island inside the drawing, so only the near-white
-components that touch the border are dropped.
+The one thing that matters in there is how the background comes off, and the
+two scripts do it differently. The older drawing sat on a flat white ground
+with guests dressed in white, so a threshold on whiteness would have taken the
+garments with the backdrop and connectivity had to separate them instead.
+
+The new drawing stands on a glossy floor, with a warm reflective lower third
+and a reflection under every figure, so no threshold on whiteness works at all.
+What it has instead is that every figure is fully enclosed in a dark outline,
+so the fill runs from the frame edge through everything that is not ink and
+stops at the outlines. Nothing depends on the backdrop's colour.
+
+Two things there are easy to get wrong and are commented in the source. The
+floor must be cropped after the fill and never before, because several gaps
+between figures are closed overhead and their only route to the frame is
+downwards through the floor. And some gaps are sealed on every side, so a
+second pass catches those by colour, which is safe only because the backdrop
+and the palest garment are far apart.
 
 The chips under the drawing are sampled from artwork rather than chosen to sit
 beside it, so a guest holding a drawing against a swatch is comparing a colour
@@ -123,8 +143,7 @@ to itself.
 
 There are two sets of them now, because the two sides are asked for different
 colours: the bride's guests in white and gold, the groom's in wine and dusty
-rose. The one drawing serves both and is there for the garments rather than
-the colours, which is what its alt text says.
+rose. The drawing shows both, so the swatches and the artwork finally agree.
 
 The page's own palette was changed to match, so wine, dusty rose, gold and
 white are now the site's colours as well as the guests'. The traffic still
@@ -181,8 +200,8 @@ couple rather than merely unstyled:
                            Replaced by images/venue-waterfront.jpg, which is
                            the real place.
     images/dress-code.png  sherwani and lehenga. Replaced by
-                           images/guest-attire-white-gold.webp, Yoruba attire in
-                           the white and gold the guests are asked to wear.
+                           images/guest-attire-both-sides.webp, Yoruba attire in
+                           both the colourways the guests are asked to wear.
     images/gift-card.png   a gift-list note this invitation has no section for.
 
 The unused floral sprays (bouquet, corner-b, corner-c, corner-tall, spray-low,
