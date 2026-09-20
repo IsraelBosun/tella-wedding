@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ScrollCue } from './ScrollCue';
 import { BotanicalSprig } from './BotanicalSprig';
@@ -23,13 +23,12 @@ import { FloralCorner } from './ornaments/FloralCorner';
  */
 
 /*
-  How much of the hero clip is used. The file is longer, but only the
-  opening holds on the couple, so it is cut here and looped.
+  How much of the hero clip is used. Only the opening holds on the couple.
 
-  This is a playback cut, not a trim: the whole file is still downloaded,
-  because trimming the mp4 itself needs ffmpeg, which is not on this
-  machine. Re-encoding it to five seconds would save the guest most of
-  5.7MB and is worth doing before this goes out.
+  The file is now trimmed to exactly this length by _scratch/hero/prep.py, so
+  `loop` on the element is what repeats it and the handler below is the
+  backstop, rather than the other way round. The handler is kept because it is
+  what keeps the cut honest if a longer clip is ever dropped into the slot.
 */
 const HERO_CLIP_SECONDS = 5;
 
@@ -75,14 +74,35 @@ export function HeroSection({ data }) {
 function VideoHero({ data, src }) {
   const { groom, bride, media } = data;
   const videoRef = useRef(null);
+  const poster = media?.heroImage ?? null;
 
   const { scrollY } = useScroll();
   const fade = useTransform(scrollY, [0, 520], [1, 0]);
 
   /*
+    Autoplay can be refused even for a muted inline clip: iOS does it outright
+    in Low Power Mode, and Android does it under Data Saver. The `autoplay`
+    attribute fails silently when that happens, so playback is also asked for
+    here, where the refusal can be caught.
+
+    On a refusal the element is replaced by the poster frame rather than left
+    in place. A video that cannot play paints its own affordance over itself,
+    and a play button on a wedding invitation reads as something broken. The
+    still is the same frame the clip opens on, so nothing is lost but motion.
+  */
+  const [refused, setRefused] = useState(false);
+
+  useEffect(() => {
+    const played = videoRef.current?.play();
+    // Older browsers return undefined here rather than a promise.
+    played?.catch?.(() => setRefused(true));
+  }, []);
+
+  const showStill = refused && poster;
+
+  /*
     Seeking back rather than pausing and replaying, so the loop has no gap in
-    it. `loop` stays on the element as the backstop for a file shorter than
-    the cut.
+    it. Only reached by a clip longer than the cut; the shipped one is not.
   */
   const restartAtCut = useCallback(() => {
     const video = videoRef.current;
@@ -97,18 +117,34 @@ function VideoHero({ data, src }) {
         style={{ opacity: fade }}
         className="pointer-events-none relative aspect-9/16 max-h-svh w-full"
       >
-        <video
-          ref={videoRef}
-          src={src}
-          poster={media?.heroImage ?? undefined}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          onTimeUpdate={restartAtCut}
-          className="absolute inset-0 size-full object-contain"
-        />
+        {showStill ? (
+          /*
+            A plain img, not next/image, and deliberately so: this has to be
+            the identical URL to the poster attribute above, which the browser
+            has already fetched. Routing it through the optimiser would produce
+            a second URL and download the same frame twice, on the connection
+            least able to afford it.
+          */
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={poster}
+            alt=""
+            className="absolute inset-0 size-full object-contain"
+          />
+        ) : (
+          <video
+            ref={videoRef}
+            src={src}
+            poster={poster ?? undefined}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            onTimeUpdate={restartAtCut}
+            className="absolute inset-0 size-full object-contain"
+          />
+        )}
       </motion.div>
 
       {/*
@@ -147,10 +183,10 @@ function DrawnHero({ data }) {
           transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
           className="relative h-full w-[min(94vw,440px)]"
         >
-          <CuspedArch className="h-full w-full text-blue-deep/45" />
+          <CuspedArch className="h-full w-full text-wine-deep/45" />
 
-          <FloralCorner className="absolute bottom-0 left-0 w-28 text-blue-deep/50 sm:w-36" />
-          <FloralCorner className="absolute right-0 bottom-0 w-28 text-blue-deep/50 sm:w-36" flip />
+          <FloralCorner className="absolute bottom-0 left-0 w-28 text-wine-deep/50 sm:w-36" />
+          <FloralCorner className="absolute right-0 bottom-0 w-28 text-wine-deep/50 sm:w-36" flip />
         </motion.div>
       </motion.div>
 
@@ -162,13 +198,13 @@ function DrawnHero({ data }) {
           custom={0}
           lang="ar"
           dir="rtl"
-          className="font-arabic text-[22px] leading-[2] font-bold text-blue-ink sm:text-[26px]"
+          className="font-arabic text-[22px] leading-[2] font-bold text-wine-ink sm:text-[26px]"
         >
           {bismillah}
         </motion.p>
 
         <motion.div variants={rise} initial="hidden" animate="show" custom={1}>
-          <BotanicalSprig className="animate-drift mt-6 w-28 text-blue-deep sm:w-36" />
+          <BotanicalSprig className="animate-drift mt-6 w-28 text-wine-deep sm:w-36" />
         </motion.div>
 
         <motion.p
@@ -176,7 +212,7 @@ function DrawnHero({ data }) {
           initial="hidden"
           animate="show"
           custom={2}
-          className="eyebrow mt-6 text-[0.71rem] text-blue-ink"
+          className="eyebrow mt-6 text-[0.71rem] text-wine-ink"
         >
           {hero.kicker}
         </motion.p>
@@ -189,7 +225,7 @@ function DrawnHero({ data }) {
           className="script-heading mt-5 flex flex-col leading-[0.95]"
         >
           <span className="stamp text-[66px] sm:text-[91px]">{groom.name}</span>
-          <span className="my-1 font-serif text-[28px] font-semibold text-blue-deep italic sm:text-[35px]">
+          <span className="my-1 font-serif text-[28px] font-semibold text-wine-deep italic sm:text-[35px]">
             &amp;
           </span>
           <span className="stamp text-[66px] sm:text-[91px]">{bride.name}</span>
@@ -204,11 +240,11 @@ function DrawnHero({ data }) {
         >
           <span className="rule-fade w-full max-w-[260px]" />
 
-          <p className="eyebrow mt-6 text-[0.68rem] text-blue-mid">
+          <p className="eyebrow mt-6 text-[0.68rem] text-wine-mid">
             {hero.place}
           </p>
 
-          <p className="mt-7 inline-flex items-center rounded-full border border-blue-deep/40 bg-shell/70 px-5 py-2 font-caps text-[0.73rem] font-semibold tracking-[0.16em] text-blue-ink">
+          <p className="mt-7 inline-flex items-center rounded-full border border-wine-deep/40 bg-shell/70 px-5 py-2 font-caps text-[0.73rem] font-semibold tracking-[0.16em] text-wine-ink">
             {hashtag}
           </p>
         </motion.div>

@@ -8,7 +8,7 @@ frame, so the page is presentable before a single asset exists.
 ## Slots
 
     images/cover.png        portrait cover card, ~440px wide on screen (media.coverImage)
-    images/hero.jpg         9:16 poster frame for the hero clip  (media.heroImage)
+    images/hero.jpg         9:16 poster for the hero clip, required (media.heroImage)
     images/couple-1.webp    3:4 portrait for Our Story          (story.photo)
     images/groom-child.webp 3:4 childhood photo, captioned      (story.childhood[0])
     images/bride-child.webp 3:4 childhood photo, captioned      (story.childhood[1])
@@ -16,11 +16,13 @@ frame, so the page is presentable before a single asset exists.
     images/guest-attire-white-gold.webp cutout, no frame, no background (dressCode.illustration)
     video/opening.mp4       muted envelope clip, plays on tap   (media.coverVideo)
     images/venue-waterfront.jpg 4:3 photo of the venue, above the map (venue.image)
-    video/hero-animation.mp4    9:16 muted loop behind the hero (media.heroVideo)
+    video/hero-welcome.mp4      9:16 muted loop behind the hero (media.heroVideo)
     audio/*.mp3             looping background track            (media.audio)
 
 Setting `media.heroVideo` turns off the drawn arch and floral corners in the
 hero, on the assumption the clip carries its own. Clear it to get them back.
+Set `media.heroImage` alongside it and do not leave it null: see "The hero
+clip" below for why that one is not really optional.
 The clip is shown as a centred 9:16 column rather than full bleed, so a wide
 screen sees the whole card instead of a cropped band through its middle, and
 nothing is laid over it.
@@ -64,6 +66,36 @@ fetch, because next/font/google reaches for fonts.gstatic.com, which this
 machine cannot reach. The copy under `_scratch/env/fonts/` came from jsdelivr,
 which it can. That is only a build-time problem for the site's own CSS; nothing
 here is affected, since the letters are baked into the two files.
+
+## The hero clip
+
+video/hero-welcome.mp4 is cut from a 10s, 5.7MB master by `_scratch/hero/prep.py`,
+which also writes images/hero.jpg. The master is kept beside that script rather
+than here, so it is not downloaded by every guest, and it is in git history at
+video/hero-animation.mp4 if that copy is lost.
+
+The poster is the part worth understanding. Guests on older phones were seeing
+a grey panel with a play button where the hero should be, and the cause was not
+the format or the encode: a `<video>` with no poster paints nothing until it
+can play, and a browser that refuses to autoplay fills that nothing with its
+own affordance. iOS refuses outright in Low Power Mode and Android refuses
+under Data Saver, and neither can be worked around. So the clip is now backed
+by a still of its own first frame, and HeroSection catches the refused `play()`
+and swaps the element for that still, which means the failure mode is a
+designed hero rather than a broken one.
+
+Frame 0 specifically, because the clip is a slow pull-back: it is both the
+largest, most readable composition in the clip and the exact frame playback
+starts on, so the poster does not jump when the video takes over. It is JPEG
+rather than WebP because the device that cannot play the video is the same
+device that may not decode a WebP.
+
+The encode drops the audio track, which is never heard through a muted element
+and is one more thing for a mobile browser to re-check autoplay against, trims
+to the five seconds HeroSection actually plays, and moves the moov atom to the
+front so playback can begin before the file finishes arriving. CRF 26 was
+picked by measurement: 40.4 dB average PSNR against the master with a per-frame
+floor of 37.9 dB. 5.7MB became 801KB, and the poster costs 167KB of that back.
 
 ## Guest attire
 
@@ -127,7 +159,7 @@ Wired in:
     motifs/bride.png                GoldMotif "bride"       (The Nikkah, Dress Code)
     motifs/cloche.png               GoldMotif "dining"      (Refreshments)
     motifs/drums.png                GoldMotif "music"       (Engagement, Closing)
-    video/hero-animation.mp4        hero backdrop
+    video/hero-welcome.mp4          hero backdrop
     video/opening.mp4               the tap-to-open clip
 
 `SCHEDULE_MOTIFS` in components/invitation/ornaments/GoldMotif.jsx is what maps
