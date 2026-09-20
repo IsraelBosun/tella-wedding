@@ -23,24 +23,34 @@ function houseLines(house) {
  * rather than a divider, because the point of the section is the joining. The
  * bride's house is authored as two lines, so it is accepted as an array.
  *
- * Each side takes one of the couple's two colours, the groom's blue and the
- * bride's rose. Two families, two colours, one union: the palette carries the
- * section's own argument. The arch card above no longer does this, and sets
- * both names in the same ink, because there the two names sit one under the
- * other as a single piece of wording rather than as two facing panels.
+ * Each side takes one of the guests' two dress codes: the groom's wine and the
+ * bride's gold on white. Two families, two colours, one union: the palette
+ * carries the section's own argument.
+ *
+ * It used to be the groom's blue against the bride's rose. When the lead
+ * changed from blue to wine that stopped working, because wine and rose are
+ * both reds and two facing panels of nearly the same colour say nothing. Gold
+ * is what the bride's side takes instead, which is not a substitution of
+ * convenience: her guests are asked to wear white and gold and his are asked
+ * to wear wine, so the two cards now say exactly what the two sides will be
+ * wearing.
+ *
+ * The arch card above deliberately does not do this. There the two names sit
+ * one under the other as a single piece of wording rather than as two facing
+ * panels, so both are set in the same ink.
  */
-function Family({ side, house, place, note, tone = 'blue' }) {
-  const rose = tone === 'rose';
+function Family({ side, house, place, note, tone = 'wine' }) {
+  const gold = tone === 'gold';
 
   return (
     <div
       className={`flex flex-1 flex-col items-center rounded-[3px] px-6 py-9 text-center ${
-        rose ? 'bg-blush' : 'bg-mist'
+        gold ? 'bg-shell' : 'bg-mist'
       }`}
     >
       <p
         className={`eyebrow text-[0.65rem] ${
-          rose ? 'text-rose-ink' : 'text-blue-ink'
+          gold ? 'text-metal-ink' : 'text-wine-ink'
         }`}
       >
         {side}
@@ -48,7 +58,7 @@ function Family({ side, house, place, note, tone = 'blue' }) {
 
       <h3
         className={`script-heading mt-4 text-[33px] leading-[1.25] sm:text-[37px] ${
-          rose ? 'stamp-rose' : 'stamp'
+          gold ? 'stamp-gold' : 'stamp'
         }`}
       >
         {houseLines(house).map((line) => (
@@ -58,9 +68,15 @@ function Family({ side, house, place, note, tone = 'blue' }) {
         ))}
       </h3>
 
+      {/*
+        wine-deep rather than wine-mid, and metal-ink rather than metal-deep.
+        Both of the lighter steps are rated against the paper, and these sit on
+        a tinted card: wine-mid falls to 4.26:1 on mist and metal-deep to
+        4.33:1 on shell, both under the 4.5:1 floor this size of text needs.
+      */}
       <p
         className={`mt-4 font-caps text-[0.65rem] tracking-[0.2em] uppercase ${
-          rose ? 'text-rose-ink' : 'text-blue-mid'
+          gold ? 'text-metal-ink' : 'text-wine-deep'
         }`}
       >
         {place}
@@ -129,14 +145,14 @@ function ArchCard({ invite, groom, bride, families, bismillah }) {
         <p
           lang="ar"
           dir="rtl"
-          className="absolute inset-x-0 top-[18.5%] text-center font-arabic text-[2.6cqw] leading-none whitespace-nowrap text-blue-ink"
+          className="absolute inset-x-0 top-[18.5%] text-center font-arabic text-[2.6cqw] leading-none whitespace-nowrap text-wine-ink"
         >
           {bismillah}
         </p>
       )}
 
       <div className="absolute inset-x-[18%] top-[26%] bottom-[6%] flex flex-col items-center justify-center text-center">
-        <p className="font-caps text-[2.4cqw] leading-[1.9] tracking-[0.2em] text-blue-ink uppercase">
+        <p className="font-caps text-[2.4cqw] leading-[1.9] tracking-[0.2em] text-wine-ink uppercase">
           {invite.kicker.map((line) => (
             <span key={line} className="block">
               {line}
@@ -150,7 +166,7 @@ function ArchCard({ invite, groom, bride, families, bismillah }) {
 
         <OrnamentalDivider size="sm" className="mt-[2cqw] !w-[38%]" />
 
-        <p className="mt-[1.8cqw] font-caps text-[2.2cqw] leading-[1.8] tracking-[0.18em] text-blue-ink uppercase">
+        <p className="mt-[1.8cqw] font-caps text-[2.2cqw] leading-[1.8] tracking-[0.18em] text-wine-ink uppercase">
           <span className="block">{invite.groomRole}</span>
           {houseLines(families.groom.house).map((line) => (
             <span key={line} className="block">
@@ -169,7 +185,7 @@ function ArchCard({ invite, groom, bride, families, bismillah }) {
 
         <OrnamentalDivider size="sm" className="mt-[2cqw] !w-[38%]" />
 
-        <p className="mt-[1.8cqw] font-caps text-[2.2cqw] leading-[1.8] tracking-[0.18em] text-blue-ink uppercase">
+        <p className="mt-[1.8cqw] font-caps text-[2.2cqw] leading-[1.8] tracking-[0.18em] text-wine-ink uppercase">
           <span className="block">{invite.brideRole}</span>
           {houseLines(families.bride.house).map((line) => (
             <span key={line} className="block">
@@ -219,11 +235,11 @@ export function FamiliesSection({ families, groom, bride, bismillah }) {
             className="flex items-center justify-center sm:w-px"
           >
             {/* Horizontal sprig when stacked, a hairline when side by side. */}
-            <BotanicalSprig className="w-28 text-blue-deep/60 sm:hidden" />
-            <span className="hidden h-full w-px bg-blue-deep/18 sm:block" />
+            <BotanicalSprig className="w-28 text-wine-deep/60 sm:hidden" />
+            <span className="hidden h-full w-px bg-wine-deep/18 sm:block" />
           </div>
 
-          <Family {...families.bride} tone="rose" />
+          <Family {...families.bride} tone="gold" />
         </div>
       </section>
     </SectionReveal>

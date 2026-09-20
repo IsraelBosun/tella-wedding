@@ -39,7 +39,7 @@ function Unit({ value, label }) {
       <span className="tabular stamp font-serif text-[45px] leading-none font-medium sm:text-[58px]">
         {pad(value)}
       </span>
-      <span className="eyebrow mt-3 text-[0.59rem] text-blue-ink sm:text-[0.65rem]">
+      <span className="eyebrow mt-3 text-[0.59rem] text-wine-ink sm:text-[0.65rem]">
         {label}
       </span>
     </div>
@@ -64,7 +64,7 @@ export function CountdownSection({ date, countdown }) {
           Hairlines between the units rather than colons. A colon belongs to a
           clock; this is a number of days until a wedding, not a stopwatch.
         */}
-        <div className="mt-12 flex items-start justify-center divide-x divide-blue-deep/20">
+        <div className="mt-12 flex items-start justify-center divide-x divide-wine-deep/20">
           <Unit value={value.days} label="Days" />
           <Unit value={value.hours} label="Hours" />
           <Unit value={value.minutes} label="Minutes" />

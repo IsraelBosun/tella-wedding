@@ -54,7 +54,7 @@ export function SectionHeading({
       className={`flex flex-col ${alignment} ${className}`}
     >
       {eyebrow && (
-        <motion.p variants={part} className="eyebrow text-blue-ink">
+        <motion.p variants={part} className="eyebrow text-wine-ink">
           {eyebrow}
         </motion.p>
       )}

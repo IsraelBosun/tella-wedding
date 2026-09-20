@@ -82,7 +82,7 @@ export function GiftSection({ gifts }) {
                 href={gifts.listUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="script-heading stamp mt-[6cqw] text-[6.5cqw] underline decoration-blue-deep/50 underline-offset-[0.22em]"
+                className="script-heading stamp mt-[6cqw] text-[6.5cqw] underline decoration-wine-deep/50 underline-offset-[0.22em]"
               >
                 {gifts.listLabel}
               </a>

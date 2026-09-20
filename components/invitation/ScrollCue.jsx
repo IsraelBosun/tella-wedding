@@ -14,13 +14,13 @@ export function ScrollCue({ label = 'Scroll' }) {
       transition={{ delay: 1.4, duration: 1 }}
       className="flex flex-col items-center gap-2.5 pt-12"
     >
-      <p className="script-heading text-[26px] text-blue-deep">{label}</p>
+      <p className="script-heading text-[26px] text-wine-deep">{label}</p>
 
       <motion.span
         aria-hidden="true"
         animate={{ y: [0, 5, 0], opacity: [0.45, 1, 0.45] }}
         transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-        className="block size-2 rotate-45 border-r-[1.5px] border-b-[1.5px] border-blue-deep"
+        className="block size-2 rotate-45 border-r-[1.5px] border-b-[1.5px] border-wine-deep"
       />
     </motion.div>
   );

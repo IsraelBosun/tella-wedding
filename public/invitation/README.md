@@ -10,6 +10,8 @@ frame, so the page is presentable before a single asset exists.
     images/cover.png        portrait cover card, ~440px wide on screen (media.coverImage)
     images/hero.jpg         9:16 poster frame for the hero clip  (media.heroImage)
     images/couple-1.webp    3:4 portrait for Our Story          (story.photo)
+    images/groom-child.webp 3:4 childhood photo, captioned      (story.childhood[0])
+    images/bride-child.webp 3:4 childhood photo, captioned      (story.childhood[1])
     images/couple-2.webp    3:4 portrait for the gallery        (gallery.photos[0].src)
     images/guest-attire-white-gold.webp cutout, no frame, no background (dressCode.illustration)
     video/opening.mp4       muted envelope clip, plays on tap   (media.coverVideo)
@@ -83,10 +85,19 @@ the backdrop is a single region running to the edge of the frame and every
 white garment is an island inside the drawing, so only the near-white
 components that touch the border are dropped.
 
-The six chips under the drawing are sampled from the file, not chosen to sit
-beside it, so a guest holding the illustration against a swatch is comparing a
-colour to itself. They are the guests' colours and they are not the site's: the
-page stays blue and rose, and nothing in app/globals.css answers to them.
+The chips under the drawing are sampled from artwork rather than chosen to sit
+beside it, so a guest holding a drawing against a swatch is comparing a colour
+to itself.
+
+There are two sets of them now, because the two sides are asked for different
+colours: the bride's guests in white and gold, the groom's in wine and dusty
+rose. The one drawing serves both and is there for the garments rather than
+the colours, which is what its alt text says.
+
+The page's own palette was changed to match, so wine, dusty rose, gold and
+white are now the site's colours as well as the guests'. The traffic still
+runs one way: app/globals.css is authored on its own and nothing in
+dressCode feeds it.
 
 ## Where the artwork came from
 

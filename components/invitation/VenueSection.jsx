@@ -20,9 +20,9 @@ import { SectionHeading } from './SectionHeading';
   single heavy border would just look like a box.
 */
 const FRAME =
-  'w-full max-w-[380px] rounded-[4px] border border-blue-deep/45 bg-shell/55 p-2 shadow-[0_24px_60px_-42px_rgba(39,69,94,0.8)]';
+  'w-full max-w-[380px] rounded-[4px] border border-wine-deep/45 bg-shell/55 p-2 shadow-[0_24px_60px_-42px_rgba(122,35,53,0.8)]';
 
-const MAT = 'relative w-full overflow-hidden rounded-[2px] border border-blue-deep/25';
+const MAT = 'relative w-full overflow-hidden rounded-[2px] border border-wine-deep/25';
 
 export function VenueSection({ venue }) {
   return (
@@ -84,7 +84,7 @@ export function VenueSection({ venue }) {
           href={venue.directionsUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-10 inline-flex items-center gap-3 rounded-full border border-blue-deep/45 bg-shell/60 px-9 py-4 font-caps text-[0.71rem] tracking-[0.22em] text-blue-ink uppercase transition-colors hover:border-blue-deep hover:bg-shell"
+          className="mt-10 inline-flex items-center gap-3 rounded-full border border-wine-deep/45 bg-shell/60 px-9 py-4 font-caps text-[0.71rem] tracking-[0.22em] text-wine-ink uppercase transition-colors hover:border-wine-deep hover:bg-shell"
         >
           Get Directions
           <span aria-hidden="true" className="text-[0.85em]">

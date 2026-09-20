@@ -418,7 +418,7 @@ export function EnvelopeArtwork({ monogram = '' }) {
   return (
     <svg
       viewBox={`0 0 ${W} ${H}`}
-      className="block h-full max-w-full drop-shadow-[0_30px_64px_rgba(39,69,94,0.34)]"
+      className="block h-full max-w-full drop-shadow-[0_30px_64px_rgba(122,35,53,0.34)]"
       role="img"
       aria-label={monogram ? `A sealed envelope, monogrammed ${monogram}` : 'A sealed envelope'}
     >

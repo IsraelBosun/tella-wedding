@@ -24,8 +24,8 @@ function Action({ href, external = false, children, primary = false }) {
     'flex flex-1 items-center justify-center gap-3 rounded-full px-8 py-4 font-caps text-[0.71rem] tracking-[0.2em] uppercase transition-colors';
 
   const skin = primary
-    ? 'bg-blue-ink text-paper shadow-[0_10px_24px_-14px_rgba(39,69,94,0.9)] hover:bg-blue-deep'
-    : 'border border-blue-deep/45 bg-shell/60 text-blue-ink hover:border-blue-deep hover:bg-shell';
+    ? 'bg-wine-ink text-paper shadow-[0_10px_24px_-14px_rgba(122,35,53,0.9)] hover:bg-wine-deep'
+    : 'border border-wine-deep/45 bg-shell/60 text-wine-ink hover:border-wine-deep hover:bg-shell';
 
   return (
     <a
@@ -68,7 +68,7 @@ export function RSVPSection({ rsvp }) {
             <a
               key={phone}
               href={tel(phone)}
-              className="tabular font-caps text-[1.2rem] tracking-[0.14em] text-blue-ink transition-colors hover:text-blue-deep sm:text-[1.34rem]"
+              className="tabular font-caps text-[1.2rem] tracking-[0.14em] text-wine-ink transition-colors hover:text-wine-deep sm:text-[1.34rem]"
             >
               {phone}
             </a>

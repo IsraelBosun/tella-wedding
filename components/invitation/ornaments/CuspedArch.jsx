@@ -22,7 +22,7 @@ export function CuspedArch({ className = '', relief = true }) {
       height={H}
       priority
       draggable={false}
-      className={`select-none object-contain object-bottom ${relief ? 'drop-shadow-[0_18px_34px_rgba(39,69,94,0.16)]' : ''} ${className}`}
+      className={`select-none object-contain object-bottom ${relief ? 'drop-shadow-[0_18px_34px_rgba(122,35,53,0.16)]' : ''} ${className}`}
     />
   );
 }

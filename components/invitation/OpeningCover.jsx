@@ -100,7 +100,7 @@ export function OpeningCover({
             type="button"
             onClick={handleTap}
             aria-label="Tap to open the invitation"
-            className="absolute inset-0 flex w-full cursor-pointer flex-col items-center justify-center px-6 focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-blue-deep"
+            className="absolute inset-0 flex w-full cursor-pointer flex-col items-center justify-center px-6 focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-wine-deep"
           >
             <motion.div
               initial={{ opacity: 0, y: 12 }}

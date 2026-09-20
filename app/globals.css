@@ -9,43 +9,57 @@
   _scratch/theme-gold-backup/ if it is ever wanted back.
 */
 /*
-  The couple's two colours: a soft sky blue and a dusty rose. Everything below
-  is derived from them.
+  The page's two colours: wine and a dusty rose. Everything below is derived
+  from them, with gold as the metal and the near-white paper as the ground.
+  Between them those are the four colours the guests are asked to wear, which
+  is the point: the bride's side comes in white and gold, the groom's in wine
+  and dusty rose, and the page carries both dress codes at once rather than
+  belonging to one of them.
 
-  The guests are asked to wear white and gold, which is a different pair and
-  lives only in dressCode.colors in lib/mockWedding.js. Nothing in this file
-  answers to it, and the two should not be reconciled: the page is the couple's
-  and the dress code is the guests'.
+  The lead used to be a soft sky blue. Blue against rose was a cool colour
+  against a warm one, and the page leaned on that contrast to tell two things
+  apart, most of all the two houses in the Families section. Wine and rose are
+  both reds, so that contrast is gone and the work it was doing has moved to
+  gold: the bride's house is now gold on white and the groom's is wine.
 
   The two colours themselves cannot carry text. Measured against this page the
-  blue is about 2.2:1 and the rose about 2.0:1, where 4.5:1 is the floor for
-  small type, so they are surfaces, fills and ornament. Anything a guest has to
-  read uses a deepened version of them, and every one of those is checked
-  against the ground in the comments below.
+  wine swatch is about 2.3:1 and the rose about 2.0:1, where 4.5:1 is the floor
+  for small type, so they are surfaces, fills and ornament. Anything a guest
+  has to read uses a deepened version of them, and every one of those is
+  checked against the ground in the comments below.
 */
 @theme {
   /*
-    Surfaces. The ground used to be a warm ivory, which is wrong under a cool
-    blue: warm paper plus cool ink goes muddy. It is now a near-neutral white
-    with the warmth pulled most of the way out, so both colours sit true on it.
+    Surfaces. The ground is a near-neutral white with most of the warmth pulled
+    out. It was chosen when the lead was a cool blue, to stop warm paper and
+    cool ink going muddy, and it is kept now for the opposite reason: wine,
+    rose and gold are all warm, and a warm ground under them would leave the
+    page with nothing to push against.
+
+    mist is the lead's tinted surface, so it moved with the lead. It is a wine
+    tint now rather than a blue one, matched to the old one's lightness so
+    every photograph and card that sits on it is unchanged in weight.
   */
   --color-paper: #FBF8F6;
   --color-shell: #F5F1EC;
-  --color-mist: #EAF1F7;
+  --color-mist: #F6EEF0;
   --color-blush: #F8EDEB;
 
   /*
-    Blue, the lead. Five steps, and only the last three may hold text.
-      blue       the swatch. Ornament and fill only.
-      blue-mid   4.6:1. Quiet captions, the smallest labels.
-      blue-deep  6.8:1. Eyebrows, rules, borders, numerals.
-      blue-ink   9.4:1. Body copy, headings, anything that must not be missed.
+    Wine, the lead. Five steps, and only the last three may hold text. The
+    ratios are the ones the blue ramp held, matched deliberately: the whole
+    page was built against these numbers, so keeping them means nothing that
+    was readable became unreadable in the swap.
+      wine       2.3:1. The swatch. Ornament and fill only.
+      wine-mid   4.6:1. Quiet captions, the smallest labels.
+      wine-deep  6.8:1. Eyebrows, rules, borders, numerals.
+      wine-ink   9.4:1. Body copy, headings, anything that must not be missed.
   */
-  --color-blue-pale: #C7DDEC;
-  --color-blue: #7BB0D6;
-  --color-blue-mid: #4F7591;
-  --color-blue-deep: #35597A;
-  --color-blue-ink: #27455E;
+  --color-wine-pale: #ECD1D7;
+  --color-wine: #D694A1;
+  --color-wine-mid: #BC4B62;
+  --color-wine-deep: #9B3146;
+  --color-wine-ink: #7A2335;
 
   /*
     Rose, the second voice. Carries the Engagement, the bride's side of the
@@ -64,16 +78,27 @@
     foil on the couple's names and the date. It has to stay, because every
     ornament on this site is a baked gold PNG and both videos are cream and
     gold, so a page with no gold in the type would fight its own artwork.
+
+    metal-ink is new and it is there because gold was promoted. It used to be
+    an accent on large type only, where 4.3:1 is allowed, but the bride's house
+    is now set in gold and carries a caption at 0.65rem. metal-deep is 4.33:1
+    on that card, under the 4.5:1 floor for small text, so anything small in
+    gold uses this instead: same hue and saturation, taken down to 7:1.
   */
   --color-metal: #C2A567;
   --color-metal-deep: #8A6D33;
+  --color-metal-ink: #634F25;
 
-  /* Text. Blue-derived, so prose and accent belong to the same family. */
-  --color-ink: #27455E;
-  --color-ink-soft: #4A6D85;
+  /*
+    Text. Wine-derived, so prose and accent belong to the same family. Each is
+    the wine that matches the contrast of the blue it replaces, to the second
+    decimal: 9.4:1, 5.2:1 and 12.3:1 against the paper.
+  */
+  --color-ink: #7A2335;
+  --color-ink-soft: #AD475B;
 
   /* Reserved for the few places that carry real emphasis. */
-  --color-ink-strong: #1B3347;
+  --color-ink-strong: #5D1725;
 
   /*
     Four roles, matching the reference, plus Arabic:
@@ -142,17 +167,17 @@
   }
 
   ::selection {
-    background-color: var(--color-blue-pale);
-    color: var(--color-blue-ink);
+    background-color: var(--color-wine-pale);
+    color: var(--color-wine-ink);
   }
 
   ::-webkit-scrollbar { width: 8px; }
   ::-webkit-scrollbar-track { background: var(--color-mist); }
   ::-webkit-scrollbar-thumb {
-    background: var(--color-blue-mid);
+    background: var(--color-wine-mid);
     border-radius: 4px;
   }
-  ::-webkit-scrollbar-thumb:hover { background: var(--color-blue-ink); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--color-wine-ink); }
 }
 
 @layer utilities {
@@ -203,7 +228,7 @@
     gradients, and flat is the honest version of this anyway: a printed
     invitation is one ink laid on paper, not a sheen.
   */
-  .stamp { color: var(--color-blue-ink); }
+  .stamp { color: var(--color-wine-ink); }
 
   /*
     The metal, kept for the couple's names and the date stamp only. Gold now
@@ -271,7 +296,7 @@
   */
   .rule-fade {
     height: 1px;
-    background-color: rgba(53, 89, 122, 0.42);
+    background-color: rgba(155, 49, 70, 0.42);
   }
 }
 

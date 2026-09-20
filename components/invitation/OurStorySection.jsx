@@ -17,6 +17,43 @@ export function OurStorySection({ story, monogram }) {
       <section id="story" className="mx-auto w-full max-w-[560px] px-7 py-24 sm:py-28">
         <SectionHeading eyebrow={story.eyebrow} heading={story.heading} />
 
+        {/*
+          The pair of childhood photographs, ahead of the prose because they
+          run ahead of it: the story opens at the University of Ilorin and
+          these are from years before that.
+
+          They are captioned, which nothing else on the page is. A photograph
+          of the couple needs no label, but two children do: a guest cannot be
+          expected to recognise either face, and an unlabelled pair is a puzzle
+          set at the moment the section should be at its warmest.
+        */}
+        {story.childhood?.length > 0 && (
+          <figure className="mt-12">
+            {story.childhoodLabel && (
+              <figcaption className="eyebrow text-center text-[0.65rem] text-ink-soft">
+                {story.childhoodLabel}
+              </figcaption>
+            )}
+
+            <div className="mt-6 flex flex-col gap-8 sm:flex-row sm:gap-6">
+              {story.childhood.map((photo) => (
+                <div key={photo.src} className="flex-1">
+                  <PhotoFrame
+                    src={photo.src}
+                    alt={photo.alt}
+                    monogram={monogram}
+                    ratio="aspect-3/4"
+                    sizes="(max-width: 640px) 86vw, 240px"
+                  />
+                  <p className="mt-3 text-center font-caps text-[0.66rem] tracking-[0.18em] text-ink-soft uppercase">
+                    {photo.caption}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </figure>
+        )}
+
         <div className="mt-12 space-y-6">
           {story.paragraphs.map((paragraph) => (
             <p

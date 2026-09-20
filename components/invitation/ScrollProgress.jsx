@@ -5,7 +5,7 @@ import { motion, useReducedMotion, useScroll, useSpring } from 'framer-motion';
 /**
  * A hairline across the very top that fills as the page is read.
  *
- * One pixel, and the same blue as the rules elsewhere, so it reads as part of
+ * One pixel, and the same wine as the rules elsewhere, so it reads as part of
  * the stationery rather than as a browser chrome. The spring is the point: a
  * raw scroll value snaps on a trackpad, and a bar that snaps is the opposite
  * of gentle.
@@ -29,7 +29,7 @@ export function ScrollProgress() {
     <motion.span
       aria-hidden="true"
       style={{ scaleX: progress }}
-      className="fixed inset-x-0 top-0 z-60 h-px origin-left bg-blue-deep/50"
+      className="fixed inset-x-0 top-0 z-60 h-px origin-left bg-wine-deep/50"
     />
   );
 }

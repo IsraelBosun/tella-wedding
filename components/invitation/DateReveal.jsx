@@ -62,11 +62,13 @@ export function DateReveal({
     ctx.globalCompositeOperation = 'source-over';
 
     // Flat cover, hatched. The hatching is what reads as a scratch panel now
-    // that there is no sheen across it.
-    ctx.fillStyle = '#C7DDEC';
+    // that there is no sheen across it, and it is drawn in the foil's own gold
+    // rather than a second colour, because a contrasting hatch reads as a
+    // pattern printed on the card instead of the grain of the foil over it.
+    ctx.fillStyle = '#E8CDAE';
     ctx.fillRect(0, 0, rect.width, rect.height);
 
-    ctx.strokeStyle = 'rgba(53, 89, 122, 0.16)';
+    ctx.strokeStyle = 'rgba(138, 109, 51, 0.18)';
     ctx.lineWidth = 1;
     for (let x = -rect.height; x < rect.width; x += 7) {
       ctx.beginPath();
@@ -230,7 +232,7 @@ export function DateReveal({
             aria-hidden="true"
             className="animate-reveal-flash pointer-events-none fixed inset-0 z-40 opacity-0"
             style={{
-              background: 'rgba(123,176,214,0.18)',
+              background: 'rgba(199,155,100,0.20)',
             }}
           />
         </Portal>
@@ -261,7 +263,7 @@ export function DateReveal({
                   className="relative aspect-square w-full overflow-hidden rounded-xl"
                   style={{
                     background: '#FFFFFF',
-                    boxShadow: 'inset 0 0 0 1px rgba(53,89,122,0.18)',
+                    boxShadow: 'inset 0 0 0 1px rgba(155,49,70,0.18)',
                   }}
                 >
                   <div className="absolute inset-0 flex items-center justify-center px-1">
@@ -296,14 +298,14 @@ export function DateReveal({
           <div className="mt-11 flex min-h-[7.5rem] flex-col items-center justify-start">
             {!allDone ? (
               <>
-                <p className="font-serif text-[19px] font-medium text-blue-deep">
+                <p className="font-serif text-[19px] font-medium text-wine-deep">
                   ✦ {hint} ✦
                 </p>
                 {/* Keyboard and assistive tech route to the same outcome. */}
                 <button
                   type="button"
                   onClick={revealAll}
-                  className="mt-4 font-caps text-[0.68rem] tracking-[0.2em] text-blue-ink uppercase underline underline-offset-4 transition-colors hover:text-blue-ink"
+                  className="mt-4 font-caps text-[0.68rem] tracking-[0.2em] text-wine-ink uppercase underline underline-offset-4 transition-colors hover:text-wine-ink"
                 >
                   Reveal instead
                 </button>
@@ -317,7 +319,7 @@ export function DateReveal({
               >
                 <span className="rule-fade w-40" />
 
-                <p className="mt-6 font-caps text-[0.93rem] tracking-[0.2em] text-blue-ink uppercase sm:text-[1.08rem]">
+                <p className="mt-6 font-caps text-[0.93rem] tracking-[0.2em] text-wine-ink uppercase sm:text-[1.08rem]">
                   {event.short}
                 </p>
 

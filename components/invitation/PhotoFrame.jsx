@@ -21,7 +21,7 @@ export function PhotoFrame({
   return (
     <figure className={`w-full ${className}`}>
       <div
-        className={`relative ${ratio} w-full overflow-hidden rounded-[2px] bg-mist shadow-[0_26px_60px_-38px_rgba(39,69,94,0.75)]`}
+        className={`relative ${ratio} w-full overflow-hidden rounded-[2px] bg-mist shadow-[0_26px_60px_-38px_rgba(122,35,53,0.75)]`}
       >
         {src ? (
           <Image
@@ -39,25 +39,25 @@ export function PhotoFrame({
             className="absolute inset-0 flex flex-col items-center justify-center gap-6 bg-mist px-8 text-center"
           >
             {/* Double engraved rule, as on the cover artwork. */}
-            <span className="pointer-events-none absolute inset-3 border border-blue-deep/25" />
-            <span className="pointer-events-none absolute inset-[18px] border border-blue-deep/12" />
+            <span className="pointer-events-none absolute inset-3 border border-wine-deep/25" />
+            <span className="pointer-events-none absolute inset-[18px] border border-wine-deep/12" />
 
-            <span className="relative flex size-20 items-center justify-center rounded-full border border-blue-deep/30 bg-paper/60">
+            <span className="relative flex size-20 items-center justify-center rounded-full border border-wine-deep/30 bg-paper/60">
               <span className="monogram stamp text-[21px]">{monogram}</span>
             </span>
 
-            <span className="eyebrow relative text-[0.59rem] text-blue-mid">
+            <span className="eyebrow relative text-[0.59rem] text-wine-mid">
               Photograph to follow
             </span>
           </div>
         )}
 
         {/* Warm inner edge, so the image sits in the paper instead of on it. */}
-        <span className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_rgba(53,89,122,0.28)]" />
+        <span className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_rgba(155,49,70,0.28)]" />
       </div>
 
       {caption && (
-        <figcaption className="mt-4 text-center font-serif text-[17px] leading-relaxed font-medium text-blue-mid italic">
+        <figcaption className="mt-4 text-center font-serif text-[17px] leading-relaxed font-medium text-wine-mid italic">
           {caption}
         </figcaption>
       )}

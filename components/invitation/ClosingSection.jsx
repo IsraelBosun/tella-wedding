@@ -17,7 +17,7 @@ export function ClosingSection({ names, hashtag, closing }) {
               <GoldMotif name="music" className="mx-auto w-44 sm:w-52" />
             and put the import back. */}
 
-        <BotanicalSprig className="mx-auto w-40 text-blue-deep/60 sm:w-48" />
+        <BotanicalSprig className="mx-auto w-40 text-wine-deep/60 sm:w-48" />
 
         {/*
           The two sprays came up from the foot of the RSVP section, where they
@@ -47,13 +47,13 @@ export function ClosingSection({ names, hashtag, closing }) {
           />
         </div>
 
-        <p className="mt-6 font-caps text-[0.73rem] tracking-[0.18em] text-blue-ink">
+        <p className="mt-6 font-caps text-[0.73rem] tracking-[0.18em] text-wine-ink">
           {hashtag}
         </p>
 
         <span className="rule-fade mx-auto mt-10 w-48" />
 
-        <p className="mt-8 font-serif text-[17px] tracking-[0.04em] font-medium text-blue-mid">
+        <p className="mt-8 font-serif text-[17px] tracking-[0.04em] font-medium text-wine-mid">
           {closing.footnote} · {closing.dateStamp}
         </p>
       </footer>

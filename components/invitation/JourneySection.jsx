@@ -28,12 +28,18 @@ import { OrnamentalDivider } from './OrnamentalDivider';
  */
 
 /*
-  `tone` is what splits the day in two. The Nikkah is blue and the Engagement
-  is rose, so the page turns warm at the same moment the day does. Before this
+  `tone` is what splits the day in two. The Nikkah is wine and the Engagement
+  is rose, so the page lightens at the same moment the day does. Before this
   both halves were the same gold and the whole thing scanned as one long
   agenda.
+
+  This split reads more quietly than it used to. The Nikkah was blue when the
+  lead was blue, which set a cool half against a warm one; wine and rose are
+  both reds, so the two halves are now near and far rather than cool and warm.
+  It still separates them, but if the day ever needs to divide harder, gold is
+  the colour with room left, as the Families section already does.
 */
-function BlockTitle({ title, time, motif, tone = 'blue' }) {
+function BlockTitle({ title, time, motif, tone = 'wine' }) {
   const rose = tone === 'rose';
 
   return (
@@ -48,7 +54,7 @@ function BlockTitle({ title, time, motif, tone = 'blue' }) {
       </h3>
       <p
         className={`eyebrow mt-2 text-[0.65rem] ${
-          rose ? 'text-rose-ink' : 'text-blue-ink'
+          rose ? 'text-rose-ink' : 'text-wine-ink'
         }`}
       >
         {time}
@@ -113,10 +119,10 @@ function NikkahRail({ schedule }) {
         aria-hidden="true"
         className="absolute top-2 bottom-2 left-1/2 w-px -translate-x-1/2"
       >
-        <span className="absolute inset-0 bg-blue-deep/18" />
+        <span className="absolute inset-0 bg-wine-deep/18" />
         <motion.span
           style={{ scaleY: reduceMotion ? 1 : progress }}
-          className="absolute inset-0 origin-top bg-blue-deep/55"
+          className="absolute inset-0 origin-top bg-wine-deep/55"
         />
       </span>
 
@@ -161,7 +167,7 @@ function NikkahRail({ schedule }) {
             width={1254}
             height={1254}
             draggable={false}
-            className="block h-auto w-full drop-shadow-[0_4px_10px_rgba(39,69,94,0.28)]"
+            className="block h-auto w-full drop-shadow-[0_4px_10px_rgba(122,35,53,0.28)]"
           />
         </motion.span>
       </motion.span>
@@ -195,8 +201,8 @@ function NikkahRail({ schedule }) {
               aria-hidden="true"
               className="flex items-center justify-center"
             >
-              <span className="relative flex size-[13px] rotate-45 items-center justify-center border border-blue-deep/60 bg-paper">
-                <span className="size-[5px] rotate-45 bg-blue-deep" />
+              <span className="relative flex size-[13px] rotate-45 items-center justify-center border border-wine-deep/60 bg-paper">
+                <span className="size-[5px] rotate-45 bg-wine-deep" />
               </span>
             </span>
 
@@ -266,21 +272,21 @@ function EngagementOrder({ order, inView }) {
 /** The at-a-glance card: everything a guest needs if they read nothing else. */
 function EventCard({ date, venue }) {
   return (
-    <div className="relative mt-16 overflow-hidden rounded-[3px] bg-mist px-7 py-12 text-center shadow-[0_24px_60px_-42px_rgba(39,69,94,0.8)]">
-      <span className="pointer-events-none absolute inset-2.5 border border-blue-deep/25" />
-      <span className="pointer-events-none absolute inset-[15px] border border-blue-deep/12" />
+    <div className="relative mt-16 overflow-hidden rounded-[3px] bg-mist px-7 py-12 text-center shadow-[0_24px_60px_-42px_rgba(122,35,53,0.8)]">
+      <span className="pointer-events-none absolute inset-2.5 border border-wine-deep/25" />
+      <span className="pointer-events-none absolute inset-[15px] border border-wine-deep/12" />
 
       <div className="relative">
         <p className="script-heading stamp-gold text-[40px] sm:text-[49px]">
           {date.long}
         </p>
-        <p className="eyebrow mt-2 text-[0.65rem] text-blue-ink">
+        <p className="eyebrow mt-2 text-[0.65rem] text-wine-ink">
           {date.weekday}
         </p>
 
         <OrnamentalDivider size="md" className="my-8" />
 
-        <p className="font-caps text-[0.8rem] tracking-[0.22em] text-blue-ink uppercase">
+        <p className="font-caps text-[0.8rem] tracking-[0.22em] text-wine-ink uppercase">
           Nikkah · {date.time}
         </p>
         <p className="mt-2 font-serif text-[19px] font-medium text-ink italic">
@@ -319,7 +325,7 @@ export function JourneySection({ journey, venue, date }) {
         <div id="nikkah" className="mt-20 scroll-mt-24">
           <BlockTitle title={nikkah.title} time={nikkah.time} motif="nikkah" />
           <NikkahRail schedule={nikkah.schedule} />
-          <p className="mt-9 border-t border-blue-deep/15 pt-6 text-center font-serif text-[17px] leading-relaxed font-medium text-blue-mid italic">
+          <p className="mt-9 border-t border-wine-deep/15 pt-6 text-center font-serif text-[17px] leading-relaxed font-medium text-wine-mid italic">
             {nikkah.note}
           </p>
         </div>

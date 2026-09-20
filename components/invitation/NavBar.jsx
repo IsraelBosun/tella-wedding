@@ -73,7 +73,7 @@ export function NavBar({ monogram, audio }) {
         initial={false}
         animate={{ y: shown || menuOpen ? 0 : '-100%' }}
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed inset-x-0 top-0 z-50 border-b border-blue-deep/15 bg-paper/85 backdrop-blur-md"
+        className="fixed inset-x-0 top-0 z-50 border-b border-wine-deep/15 bg-paper/85 backdrop-blur-md"
       >
         <div className="mx-auto flex h-14 w-full max-w-3xl items-center justify-between px-5 sm:h-16 sm:px-7">
           {audio.hasAudio ? (
@@ -83,7 +83,7 @@ export function NavBar({ monogram, audio }) {
               aria-label={
                 audio.isPlaying ? 'Mute background music' : 'Play background music'
               }
-              className="flex size-9 items-center justify-center rounded-full text-blue-deep transition-colors hover:text-blue-ink"
+              className="flex size-9 items-center justify-center rounded-full text-wine-deep transition-colors hover:text-wine-ink"
             >
               <MusicGlyph isPlaying={audio.isPlaying} />
             </button>
@@ -121,7 +121,7 @@ export function NavBar({ monogram, audio }) {
               <a
                 key={link.href}
                 href={link.href}
-                className="eyebrow text-[0.66rem] whitespace-nowrap !tracking-[0.15em] text-blue-ink transition-colors hover:text-blue-ink"
+                className="eyebrow text-[0.66rem] whitespace-nowrap !tracking-[0.15em] text-wine-ink transition-colors hover:text-wine-ink"
               >
                 {link.label}
               </a>
@@ -138,12 +138,12 @@ export function NavBar({ monogram, audio }) {
             <motion.span
               animate={menuOpen ? { rotate: 45, y: 3.5 } : { rotate: 0, y: 0 }}
               transition={{ duration: 0.25 }}
-              className="block h-px w-5 bg-blue-ink"
+              className="block h-px w-5 bg-wine-ink"
             />
             <motion.span
               animate={menuOpen ? { rotate: -45, y: -3.5 } : { rotate: 0, y: 0 }}
               transition={{ duration: 0.25 }}
-              className="block h-px w-5 bg-blue-ink"
+              className="block h-px w-5 bg-wine-ink"
             />
           </button>
 

@@ -22,7 +22,7 @@ export function MusicToggle({ audio }) {
       }
       aria-pressed={audio.isPlaying}
       title={audio.isPlaying ? 'Pause music' : 'Play music'}
-      className="fixed right-5 bottom-5 z-50 flex size-12 items-center justify-center rounded-full bg-blue-ink text-paper shadow-[0_6px_20px_rgba(39,69,94,0.28)] transition-colors hover:bg-blue-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-ink sm:right-7 sm:bottom-7 sm:size-14"
+      className="fixed right-5 bottom-5 z-50 flex size-12 items-center justify-center rounded-full bg-wine-ink text-paper shadow-[0_6px_20px_rgba(122,35,53,0.28)] transition-colors hover:bg-wine-deep focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-wine-ink sm:right-7 sm:bottom-7 sm:size-14"
     >
       {audio.isPlaying ? <PauseGlyph /> : <PlayGlyph />}
     </motion.button>
