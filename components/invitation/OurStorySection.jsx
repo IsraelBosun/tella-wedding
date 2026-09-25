@@ -79,6 +79,38 @@ export function OurStorySection({ story, monogram }) {
           <span className="rule-fade mt-7 w-24" />
         </blockquote>
 
+        {/*
+          Her reply, set in the same prose and quote styles as his so the two
+          voices carry equal weight. The label is the only marker of the change
+          of speaker; nothing else about the type needs to shift.
+        */}
+        {story.reply && (
+          <>
+            <p className="eyebrow text-center text-[0.65rem] text-ink-soft">
+              {story.reply.label}
+            </p>
+
+            <div className="mt-8 space-y-6">
+              {story.reply.paragraphs.map((paragraph) => (
+                <p
+                  key={paragraph}
+                  className="font-serif text-[20px] leading-[1.9] font-medium text-ink sm:text-[22px]"
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+
+            <blockquote className="my-14 flex flex-col items-center text-center">
+              <span className="rule-fade w-24" />
+              <p className="stamp-rose mt-7 font-serif text-[28px] leading-[1.45] font-medium italic sm:text-[35px]">
+                {story.reply.pullQuote}
+              </p>
+              <span className="rule-fade mt-7 w-24" />
+            </blockquote>
+          </>
+        )}
+
         <p className="text-center font-serif text-[20px] leading-[1.9] font-medium text-ink sm:text-[22px]">
           {story.closing}
         </p>

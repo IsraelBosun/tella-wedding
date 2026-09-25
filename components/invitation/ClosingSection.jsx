@@ -56,6 +56,18 @@ export function ClosingSection({ names, hashtag, closing }) {
         <p className="mt-8 font-serif text-[17px] tracking-[0.04em] font-medium text-wine-mid">
           {closing.footnote} · {closing.dateStamp}
         </p>
+
+        <p className="mt-10 font-caps text-[0.62rem] tracking-[0.18em] text-ink-soft uppercase">
+          Built by{' '}
+          <a
+            href="https://bluehydralabs.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline decoration-ink-soft/40 underline-offset-4 transition-colors hover:text-wine-mid"
+          >
+            BlueHydraLabs
+          </a>
+        </p>
       </footer>
     </SectionReveal>
   );
