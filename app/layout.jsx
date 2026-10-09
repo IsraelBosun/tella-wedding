@@ -6,6 +6,7 @@ import {
   Rufina,
 } from 'next/font/google';
 import localFont from 'next/font/local';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
 /*
@@ -131,7 +132,10 @@ export default function RootLayout({ children }) {
       data-scroll-behavior="smooth"
       className={`${scriptFace.variable} ${capitalA.variable} ${cormorant.variable} ${cinzel.variable} ${rufina.variable} ${amiri.variable}`}
     >
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
