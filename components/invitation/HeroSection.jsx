@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ScrollCue } from './ScrollCue';
+import { VideoScrollCue } from './VideoScrollCue';
 import { BotanicalSprig } from './BotanicalSprig';
 import { GoldMotes } from './GoldMotes';
 import { CuspedArch } from './ornaments/CuspedArch';
@@ -13,9 +14,10 @@ import { FloralCorner } from './ornaments/FloralCorner';
  * `media.heroVideo` is set, which is why they are two components rather than
  * one tree full of conditionals.
  *
- * With a clip, the clip is the whole spread and nothing is drawn over it: it
- * letters its own welcome, the couple's names and its own scroll cue, so
- * anything the page printed here would be a second copy.
+ * With a clip, the clip is the whole spread and almost nothing is drawn over
+ * it: it letters its own welcome and the couple's names. The one exception is
+ * VideoScrollCue, because guests did not notice the clip's own cue and stopped
+ * at the video.
  *
  * Without one, the page draws the thing itself: a carved multifoil arch behind
  * the type, floral sprays in the lower corners, the Bismillah at the crown,
@@ -152,6 +154,8 @@ function VideoHero({ data, src }) {
         page's h1 still has to exist. It is only hidden from sight.
       */}
       <h1 className="sr-only">{`${groom.name} and ${bride.name}`}</h1>
+
+      <VideoScrollCue />
     </section>
   );
 }
